@@ -25,3 +25,6 @@ gObserverSvc.notify("bar", "Brendan"); // "hello, Brendan"
 gObserverSvc.remove("bar", observer);
 
 ```
+
+## License
+[BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause)
