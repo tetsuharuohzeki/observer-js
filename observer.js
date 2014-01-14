@@ -38,7 +38,7 @@
  * Observer Subject
  * @constructor
  */
-global.ObserverSubject = function () {
+var ObserverSubject = function () {
 
     /**
      * @type    {Object.<string, Array.<{ handleMessage: function }>>}
@@ -162,5 +162,9 @@ ObserverSubject.prototype = Object.seal({
         delete this._map[aTopic];
     }
 });
+
+
+// export
+global.ObserverSubject = ObserverSubject;
 
 })(this);
