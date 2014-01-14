@@ -54,6 +54,10 @@ ObserverSubject.prototype = Object.seal({
     /**
      *  Regiseter the observer related to the topic.
      *
+     *  This method doesn't ensure that the subject broadcasts
+     *  the message SYNCHRONOUSLY. You must design your codes
+     *  as it can work async.
+     *
      *  @param  {string}    aTopic
      *  @param  {*} aData
      */
