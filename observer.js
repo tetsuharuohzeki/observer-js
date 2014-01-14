@@ -63,8 +63,7 @@ ObserverSubject.prototype = Object.seal({
      */
     notify: function (aTopic, aData) {
         if (!aTopic) {
-            throw new Error("Not specfied any topic.");
-            return;
+            throw new Error("Not specified any topic.");
         }
 
         var list = this._map[aTopic];
@@ -85,14 +84,12 @@ ObserverSubject.prototype = Object.seal({
      */
     add: function (aTopic, aObserver) {
         if (!aTopic || !aObserver) {
-            throw new Error("Aruguments are not passed.");
-            return;
+            throw new Error("Aruguments are not passed fully.");
         }
 
         if (!"handleMessage" in aObserver ||
-             typeof aObserver.handleMessage !== "function") {
-            throw new Error("Not implemented observer interface.");
-            return;
+            typeof aObserver.handleMessage !== "function") {
+            throw new Error("Not implement observer interface.");
         }
 
         var list = null;
@@ -121,8 +118,7 @@ ObserverSubject.prototype = Object.seal({
      */
     remove: function (aTopic, aObserver) {
         if (!aTopic || !aObserver) {
-            throw new Error("Aruguments are not passed.");
-            return;
+            throw new Error("Arguments are not passed fully.");
         }
 
         if ( !this.hasOwnProperty(aTopic) ) {
@@ -151,7 +147,7 @@ ObserverSubject.prototype = Object.seal({
      */
     removeAll: function (aTopic) {
         if (!aTopic) {
-            throw new Error("Not specfied any topic.");
+            throw new Error("Not specified any topic.");
         }
 
         if ( !this.hasOwnProperty(aTopic) ) {
