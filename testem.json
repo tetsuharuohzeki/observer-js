@@ -1,0 +1,7 @@
+{
+  "framework": "qunit",
+  "src_files": [
+    "observer.js",
+    "test/*.js"
+  ]
+}
