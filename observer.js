@@ -78,7 +78,7 @@ ObserverSubject.prototype = Object.seal({
     },
 
     /**
-     *  Regiseter the observer related to the topic.
+     *  Regiseter the observer to the related topic.
      *
      *  @param  {string}    aTopic
      *  @param  {{ handleMessage : function }}   aObserver
@@ -114,7 +114,7 @@ ObserverSubject.prototype = Object.seal({
     },
 
     /**
-     *  Unregiseter the observer related to the topic.
+     *  Unregiseter the observer from the related topic.
      *
      *  @param  {string}    aTopic
      *  @param  {{ handleMessage : function }}   aObserver
@@ -145,7 +145,7 @@ ObserverSubject.prototype = Object.seal({
     },
 
     /**
-     *  Unregiseter all observers related to the topic.
+     *  Unregiseter all observers from the related topic.
      *
      *  @param  {string}    aTopic
      */
