@@ -49,7 +49,7 @@ var ObserverSubject = function () {
 
     Object.freeze(this);
 };
-ObserverSubject.prototype = Object.seal({
+ObserverSubject.prototype = Object.freeze({
 
     /**
      *  Regiseter the observer related to the topic.
