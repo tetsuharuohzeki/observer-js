@@ -45,7 +45,7 @@ var ObserverSubject = function () {
      *
      * FIXME: Use ES6 Map
      */
-    this._map = Object.create(null);
+    this._map = {};
 
     Object.freeze(this);
 };
@@ -93,7 +93,7 @@ ObserverSubject.prototype = Object.freeze({
         }
 
         var list = null;
-        if (aTopic in this._map) {
+        if (this._map.hasOwnProperty(aTopic)) {
             list = this._map[aTopic];
         }
         else {
@@ -121,7 +121,7 @@ ObserverSubject.prototype = Object.freeze({
             throw new Error("Arguments are not passed fully.");
         }
 
-        if ( !this.hasOwnProperty(aTopic) ) {
+        if ( !this._map.hasOwnProperty(aTopic) ) {
             return;
         }
 
@@ -150,7 +150,7 @@ ObserverSubject.prototype = Object.freeze({
             throw new Error("Not specified any topic.");
         }
 
-        if ( !this.hasOwnProperty(aTopic) ) {
+        if ( !this._map.hasOwnProperty(aTopic) ) {
             return;
         }
 
