@@ -132,7 +132,7 @@ ObserverSubject.prototype = Object.freeze({
             return;
         }
 
-        list.splice(aObserver, 1);
+        list.splice(index, 1);
 
         // if the list doesn't have any object,
         // this remove the message id related to it.
