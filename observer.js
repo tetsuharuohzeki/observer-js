@@ -53,7 +53,7 @@ var ObserverSubject = function () {
 ObserverSubject.prototype = Object.freeze({
 
     /**
-     *  Regiseter the observer related to the topic.
+     *  Notify to observers related to the topic.
      *
      *  This method doesn't ensure that the subject broadcasts
      *  the message SYNCHRONOUSLY. You must design your codes
