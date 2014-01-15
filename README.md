@@ -58,18 +58,18 @@ You must design your codes as it can work async.
 - `topic`: the message id.
 - `observer`: the observer will be registerd.
 
-Regiseter the observer to the related topic.
+Register the observer to the related topic.
 
 #### ObserverSubject.remove(topic, observer)
 - `topic`: the message id.
 - `observer`: the observer will be unregisterd.
 
-Unregiseter the observer from the related topic.
+Unregister the observer from the related topic.
 
 #### ObserverSubject.removeAll(topic)
 - `topic`: the message id.
 
-Unregiseter all observers from the related topic.
+Unregister all observers from the related topic.
 
 ### Observer
 ```idl

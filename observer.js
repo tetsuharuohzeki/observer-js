@@ -78,7 +78,7 @@ ObserverSubject.prototype = Object.freeze({
     },
 
     /**
-     *  Regiseter the observer to the related topic.
+     *  Register the observer to the related topic.
      *
      *  @param  {string}    aTopic
      *  @param  {{ handleMessage : function }}   aObserver
@@ -112,7 +112,7 @@ ObserverSubject.prototype = Object.freeze({
     },
 
     /**
-     *  Unregiseter the observer from the related topic.
+     *  Unregister the observer from the related topic.
      *
      *  @param  {string}    aTopic
      *  @param  {{ handleMessage : function }}   aObserver
@@ -142,7 +142,7 @@ ObserverSubject.prototype = Object.freeze({
     },
 
     /**
-     *  Unregiseter all observers from the related topic.
+     *  Unregister all observers from the related topic.
      *
      *  @param  {string}    aTopic
      */
