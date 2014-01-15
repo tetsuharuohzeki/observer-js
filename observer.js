@@ -41,6 +41,7 @@
 var ObserverSubject = function () {
 
     /**
+     * @private
      * @type    {Object.<string, Array.<{ handleMessage: function }>>}
      *
      * FIXME: Use ES6 Map
