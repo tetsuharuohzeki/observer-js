@@ -1,6 +1,6 @@
 {
   "name": "ObserverJS",
-  "version": "0.1.0-dev",
+  "version": "0.1.0",
   "description": "Simple message passing library.",
   "repository": {
     "type": "git",
