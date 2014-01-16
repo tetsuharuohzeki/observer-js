@@ -1,0 +1,14 @@
+{
+  "name": "ObserverJS",
+  "version": "0.1.0-dev",
+  "description": "Simple message passing library.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/saneyuki/observer-js.git"
+  },
+  "devDependencies": {
+    "gulp": "~3.3.4",
+    "gulp-esmangle": "~0.0.3",
+    "gulp-rename": "~0.2.2"
+  }
+}

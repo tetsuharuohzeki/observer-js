@@ -96,3 +96,13 @@ you should implement this simply like `EventListener.handleEvent`.
 
 ## License
 [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause)
+
+## Build Prerequisites
+### Setup
+1. This need these commands:
+  - [Node.js](http://nodejs.org/)
+  - [`gulp`](https://npmjs.org/package/gulp): need to install as global.
+2. `npm install` on the root of this repository.
+
+### Build
+Execute `gulp minify`. The minified script will be placed to `dist/` directory.
