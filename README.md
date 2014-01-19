@@ -11,18 +11,18 @@ var gObserverSvc = new window.ObserverSubject();
 // observer must have `handleMessage` method.
 var observer = {
   handleMessage: function (topic, data) {
-    console.log("hello, " + data);
+    console.log(topic + ", " + data);
   },
 };
 
 // register the observer to message id.
-gObserverSvc.add("bar", observer);
+gObserverSvc.add("hello", observer);
 
 // broadcast message to registered observers.
-gObserverSvc.notify("bar", "Brendan"); // "hello, Brendan"
+gObserverSvc.notify("hello", "Brendan"); // "hello, Brendan"
 
 // unregister the observer from message id.
-gObserverSvc.remove("bar", observer);
+gObserverSvc.remove("hello", observer);
 
 ```
 
