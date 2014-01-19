@@ -78,7 +78,8 @@ interface Observer {
 };
 ```
 
-If you implement this interface to the object like `EventListener.handleMessage()`, you will be able to pass the object to `ObserverSubject.add()`.
+If you implement this interface like `Observer.handleMessage()` to the object,
+you will be able to pass the object to `ObserverSubject.add()`.
 
 #### Observer.handleMessage(topic, data)
 - `topic`: the message id.
