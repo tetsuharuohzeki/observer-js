@@ -104,8 +104,8 @@ ObserverSubject.prototype = Object.freeze({
         }
 
         // check whether it has been regisetered
-        var inList = list.indexOf(aObserver);
-        if (inList !== -1) {
+        var isInList = list.indexOf(aObserver) !== -1;
+        if (isInList) {
             return;
         }
 
