@@ -71,7 +71,7 @@ Unregister the observer from the related topic.
 
 Unregister all observers from the related topic.
 
-### Observer
+### Observer interface
 ```idl
 interface Observer {
   void handleMessage(string topic, any data);
