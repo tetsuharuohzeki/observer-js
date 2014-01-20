@@ -40,5 +40,5 @@ declare class ObserverSubject {
 }
 
 interface Observer {
-    handleMessage(topic: string, data: any);
+    handleMessage(topic: string, data: any): void;
 }
