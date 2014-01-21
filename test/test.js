@@ -157,7 +157,7 @@ module("ObserverSubject.remove()", {
     setup: baseSetup,
     teardown: baseTeardown
 });
-test("valid case", function(){
+test("valid case: unregister the single observer.", function(){
     // this will be false if `gObserver.handleMessage()` called.
     var flag = true;
     gObserver.handleMessage = function () {
@@ -172,6 +172,40 @@ test("valid case", function(){
     // this shouldn't call `gObserver.handleMessage()`.
     gSubject.notify("test", null);
     strictEqual(flag, true, "should not call `gObserver.handleMessage()` after remove it");
+});
+test("valid case: unregister the multiple observer.", function(){
+    // flags will be false if `gObserver.handleMessage()` called.
+    var isCalled1 = true;
+    var o1 = {
+        handleMessage: function () {
+            isCalled1 = false;
+        }
+    };
+
+    var isCalled2 = true;
+    var o2 = {
+        handleMessage: function () {
+            isCalled2 = false;
+        }
+    };
+
+    var isCalled3 = true;
+    var o3 = {
+        handleMessage: function () {
+            isCalled3 = false;
+        }
+    };
+
+    gSubject.add("test", o1);
+    gSubject.add("test", o2);
+    gSubject.add("test", o3);
+
+    gSubject.remove("test", o2);
+    gSubject.notify("test", null);
+
+    strictEqual(isCalled1, false, "should call 'o1.handleMessage()'.");
+    strictEqual(isCalled2, true, "should not call 'o2.handleMessage()' after remove it");
+    strictEqual(isCalled3, false, "should call 'o3.handleMessage()'.");
 });
 test("if the arg1 is invalid", function(){
     throws(function () {
