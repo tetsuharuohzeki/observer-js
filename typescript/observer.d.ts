@@ -38,6 +38,7 @@ declare class ObserverSubject {
     add(topic: string, observer: Observer): void;
     remove(topic: string, observer: Observer): void;
     removeAll(topic: string): void;
+    destroy(): void;
 }
 
 interface Observer {

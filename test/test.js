@@ -298,6 +298,47 @@ test("if the arg is invalid", function(){
     "the arg is `undefined`.");
 });
 
+module("ObserverSubject.destroy()", {
+    setup: baseSetup,
+    teardown: baseTeardown
+});
+test("finalize the subject.", function(){
+    var isCalled1 = true;
+    var o1 = {
+        handleMessage: function () {
+            isCalled1 = false;
+        }
+    };
+
+    var isCalled2 = true;
+    var o2 = {
+        handleMessage: function () {
+            isCalled2 = false;
+        }
+    };
+
+    var isCalled3 = true;
+    var o3 = {
+        handleMessage: function () {
+            isCalled3 = false;
+        }
+    };
+
+    gSubject.add("test1", o1);
+    gSubject.add("test2", o2);
+    gSubject.add("test3", o3);
+
+    gSubject.destroy();
+
+    gSubject.notify("test1", null);
+    gSubject.notify("test2", null);
+    gSubject.notify("test3", null);
+
+    strictEqual(isCalled2, true, "should not call 'o1.handleMessage()' after the subject was destroyed.");
+    strictEqual(isCalled2, true, "should not call 'o2.handleMessage()' after the subject was destroyed.");
+    strictEqual(isCalled2, true, "should not call 'o3.handleMessage()' after the subject was destroyed.");
+});
+
 
 module("Subject Independency", {
     setup: function(){},

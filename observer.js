@@ -157,13 +157,34 @@ ObserverSubject.prototype = Object.freeze({
             return;
         }
 
+        this._removeTopic(aTopic);
+    },
+
+    _removeTopic: function (aTopic) {
         var list = this._map[aTopic];
         for (var i = 0, l = list.length; i < l; ++i) {
             list[i] = null;
         }
 
         delete this._map[aTopic];
+    },
+
+    /**
+     *  Finalize the subject.
+     *  This method removes all topics from the subject.
+     *  You can use this method as a destructor.
+     */
+    destroy: function () {
+        // FIXME: use Object.keys();
+        for (var topic in this._map) {
+            if ( this._map.hasOwnProperty(topic) ) {
+                this._removeTopic(topic);
+            }
+        }
+
+        Object.freeze(this._map);
     }
+
 });
 
 
