@@ -43,3 +43,4 @@ subject.notify(TOPIC, {});
 subject.add(TOPIC, observer);
 subject.remove(TOPIC, observer);
 subject.removeAll(TOPIC);
+subject.destroy();
