@@ -36,6 +36,10 @@
 
 (function(global){
 
+// FIXME: for ~IE8
+var useFreeze = !!Object.freeze;
+
+
 /**
  * Observer Subject
  * @constructor
@@ -50,9 +54,11 @@ var ObserverSubject = function () {
      */
     this._map = {};
 
-    Object.freeze(this);
+    if (useFreeze) {
+        Object.freeze(this);
+    }
 };
-ObserverSubject.prototype = Object.freeze({
+ObserverSubject.prototype = {
 
     /**
      *  Notify to observers related to the topic.
@@ -182,10 +188,15 @@ ObserverSubject.prototype = Object.freeze({
             }
         }
 
-        Object.freeze(this._map);
+        if (useFreeze) {
+            Object.freeze(this._map);
+        }
     }
 
-});
+};
+if (useFreeze) {
+    Object.freeze(ObserverSubject.prototype);
+}
 
 
 // export
