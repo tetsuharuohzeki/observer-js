@@ -34,7 +34,7 @@
 
 "use strict";
 
-(function(global){
+var ObserverSubject = (function(){
 
 // FIXME: for ~IE8
 var useFreeze = !!Object.freeze;
@@ -200,6 +200,6 @@ if (useFreeze) {
 
 
 // export
-global.ObserverSubject = ObserverSubject;
+return ObserverSubject;
 
-})(this);
+})();
