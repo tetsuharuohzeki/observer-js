@@ -38,6 +38,17 @@ var ObserverSubject = (function(){
 
 // FIXME: for ~IE8
 var useFreeze = !!Object.freeze;
+// FIXME: for ~IE8
+var useArrayIndexOf = !!Array.prototype.indexOf;
+var polyfillArrayIndexOf = function (aArray, aTarget) {
+    for (var i = 0, l = aArray.length; i < l; ++i) {
+        if (aArray[i] === aTarget) {
+            return i;
+        }
+    }
+
+    return -1;
+};
 
 
 /**
@@ -110,7 +121,9 @@ ObserverSubject.prototype = {
         }
 
         // check whether it has been regisetered
-        var isInList = list.indexOf(aObserver) !== -1;
+        var index = useArrayIndexOf ?
+                    list.indexOf(aObserver) : polyfillArrayIndexOf(list, aObserver);
+        var isInList = index !== -1;
         if (isInList) {
             return;
         }
@@ -135,7 +148,8 @@ ObserverSubject.prototype = {
         }
 
         var list = this._map[aTopic];
-        var index = list.indexOf(aObserver);
+        var index = useArrayIndexOf ?
+                    list.indexOf(aObserver) : polyfillArrayIndexOf(list, aObserver);
         if (index === -1) {
             return;
         }
