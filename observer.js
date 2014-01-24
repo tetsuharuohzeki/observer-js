@@ -34,7 +34,22 @@
 
 "use strict";
 
-(function(global){
+var ObserverSubject = (function(){
+
+// FIXME: for ~IE8
+var useFreeze = !!Object.freeze;
+// FIXME: for ~IE8
+var useArrayIndexOf = !!Array.prototype.indexOf;
+var polyfillArrayIndexOf = function (aArray, aTarget) {
+    for (var i = 0, l = aArray.length; i < l; ++i) {
+        if (aArray[i] === aTarget) {
+            return i;
+        }
+    }
+
+    return -1;
+};
+
 
 /**
  * Observer Subject
@@ -50,9 +65,11 @@ var ObserverSubject = function () {
      */
     this._map = {};
 
-    Object.freeze(this);
+    if (useFreeze) {
+        Object.freeze(this);
+    }
 };
-ObserverSubject.prototype = Object.freeze({
+ObserverSubject.prototype = {
 
     /**
      *  Notify to observers related to the topic.
@@ -104,7 +121,9 @@ ObserverSubject.prototype = Object.freeze({
         }
 
         // check whether it has been regisetered
-        var isInList = list.indexOf(aObserver) !== -1;
+        var index = useArrayIndexOf ?
+                    list.indexOf(aObserver) : polyfillArrayIndexOf(list, aObserver);
+        var isInList = index !== -1;
         if (isInList) {
             return;
         }
@@ -129,7 +148,8 @@ ObserverSubject.prototype = Object.freeze({
         }
 
         var list = this._map[aTopic];
-        var index = list.indexOf(aObserver);
+        var index = useArrayIndexOf ?
+                    list.indexOf(aObserver) : polyfillArrayIndexOf(list, aObserver);
         if (index === -1) {
             return;
         }
@@ -182,13 +202,18 @@ ObserverSubject.prototype = Object.freeze({
             }
         }
 
-        Object.freeze(this._map);
+        if (useFreeze) {
+            Object.freeze(this._map);
+        }
     }
 
-});
+};
+if (useFreeze) {
+    Object.freeze(ObserverSubject.prototype);
+}
 
 
 // export
-global.ObserverSubject = ObserverSubject;
+return ObserverSubject;
 
-})(this);
+})();

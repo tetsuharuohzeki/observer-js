@@ -259,13 +259,13 @@ test("valid case", function() {
     var t1 = {
         handleMessage: function () {
             flag1 = false;
-        },
+        }
     };
     var flag2 = true;
     var t2 = {
         handleMessage: function () {
             flag2 = false;
-        },
+        }
     };
 
     subject.add(TOPIC, t1);
