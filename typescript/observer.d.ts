@@ -37,7 +37,7 @@ declare class ObserverSubject {
     notify(topic: string, data: any): void;
     add(topic: string, observer: Observer): void;
     remove(topic: string, observer: Observer): void;
-    removeAll(topic: string): void;
+    removeTopic(topic: string): void;
     destroy(): void;
 }
 

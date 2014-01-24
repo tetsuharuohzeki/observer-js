@@ -271,7 +271,7 @@ test("valid case", function() {
     subject.add(TOPIC, t1);
     subject.add(TOPIC, t2);
 
-    subject.removeAll(TOPIC);
+    subject.removeTopic(TOPIC);
 
     subject.notify(TOPIC, null);
 
@@ -280,19 +280,19 @@ test("valid case", function() {
 });
 test("if the arg is invalid", function(){
     throws(function () {
-        gSubject.removeAll();
+        gSubject.removeTopic();
     },
     Error,
     "the arg is nothing.");
 
     throws(function () {
-        gSubject.removeAll(null);
+        gSubject.removeTopic(null);
     },
     Error,
     "the arg is `null`.");
 
     throws(function () {
-        gSubject.removeAll(undefined);
+        gSubject.removeTopic(undefined);
     },
     Error,
     "the arg is `undefined`.");
