@@ -168,7 +168,7 @@ ObserverSubject.prototype = {
      *
      *  @param  {string}    aTopic
      */
-    removeAll: function (aTopic) {
+    removeTopic: function (aTopic) {
         if (!aTopic) {
             throw new Error("Not specified any topic.");
         }

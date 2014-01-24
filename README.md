@@ -39,7 +39,7 @@ interface ObserverSubject {
 
   void remove(string topic, Observer observer);
 
-  void removeAll(string topic);
+  void removeTopic(string topic);
 
   void destory();
 };
@@ -68,7 +68,7 @@ Register the observer to the related topic.
 
 Unregister the observer from the related topic.
 
-#### ObserverSubject.removeAll(topic)
+#### ObserverSubject.removeTopic(topic)
 - `topic`: the message id.
 
 Unregister all observers from the related topic.
