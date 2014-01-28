@@ -75,7 +75,7 @@ ObserverSubject.prototype = {
      *  Notify to observers related to the topic.
      *
      *  This method doesn't ensure that the subject broadcasts
-     *  the message SYNCHRONOUSLY. You must design your codes
+     *  the message synchronously. You must design your codes
      *  as it can work async.
      *
      *  @param  {string}    aTopic

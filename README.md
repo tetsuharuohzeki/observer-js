@@ -54,7 +54,7 @@ This is the constructor to create `ObserverSubject` instance.
 
 Notify to observers related to the topic.
 
-This method **does not** ensure that the subject broadcasts the message SYNCHRONOUSLY.  
+This method **does not** ensure that the subject broadcasts the message synchronously.  
 You must design your codes as it can work async.
 
 #### ObserverSubject.add(topic, observer)
