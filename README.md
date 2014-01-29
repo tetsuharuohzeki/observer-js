@@ -105,6 +105,12 @@ you should implement this simply like `EventListener.handleEvent`.
 ## License
 [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause)
 
+## Changelog
+- See the repository's tags.
+- See [Releases in GitHub](https://github.com/saneyuki/observer-js/releases)
+(same as the repository's tags.)
+- See [Milestones in Github issues tracking](https://github.com/saneyuki/observer-js/issues/milestones).
+
 ## Build Prerequisites
 ### Setup
 1. This need these commands:
