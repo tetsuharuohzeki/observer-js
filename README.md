@@ -120,3 +120,20 @@ you should implement this simply like `EventListener.handleEvent`.
 
 ### Build
 Execute `gulp minify`. The minified script will be placed to `dist/` directory.
+
+### Test
+TODO: These steps are too manual workings.
+We need to [fix up](https://github.com/saneyuki/observer-js/issues/23)!
+
+#### General
+1. Install [`testem`](https://github.com/airportyh/testem).
+2. run `testem` on the root of this repository.
+3. Connect following targets to testem at least.
+  - IE6~11 (Capable to use compat mode of latest IE)
+  - Latest Firefox
+  - Latest Chromium
+4. Make all tests are green.
+
+#### TypeScript type definitions
+1. Compile `typescript/test/definitions-test.ts`.
+2. If you success to compile it, the definitions are valid.
