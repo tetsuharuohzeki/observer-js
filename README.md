@@ -103,7 +103,7 @@ you should implement this simply like `EventListener.handleEvent`.
 
 
 ## License
-[BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause)
+[MIT License](http://opensource.org/licenses/mit-license)
 
 ## Changelog
 - See the repository's tags.
