@@ -71,6 +71,9 @@ ObserverSubject.prototype = {
      *  the message synchronously. You must design your codes
      *  as it can work async.
      *
+     *  This method doesn't ensure that the subject calls observers
+     *  with the registered order.
+     *
      *  @param  {string}    aTopic
      *  @param  {*} aData
      */
@@ -103,6 +106,7 @@ ObserverSubject.prototype = {
             throw new Error("Aruguments are not passed fully.");
         }
 
+        // We accept that `aObserver` inherits `handleMessage` from its ancestor.
         if (!"handleMessage" in aObserver ||
             typeof aObserver.handleMessage !== "function") {
             throw new Error("Not implement observer interface.");
@@ -133,6 +137,10 @@ ObserverSubject.prototype = {
         if (!aTopic || !aObserver) {
             throw new Error("Arguments are not passed fully.");
         }
+
+        // We don't have to check `aObserver` implements `handleMessage` method
+        // at this. Even if `aObserver` does not implement it, this method will
+        // answer that `aObserver` is not registered to this subject.
 
         if ( !this._map.hasOwnProperty(aTopic) ) {
             return;
