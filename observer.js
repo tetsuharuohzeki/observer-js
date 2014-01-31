@@ -1,7 +1,7 @@
 /* vim: set filetype=javascript shiftwidth=4 tabstop=4 expandtab: */
 /*
  * @repository  https://github.com/saneyuki/observer-js
- * @version     0.2.0
+ * @version     0.2.1
  * @license     MIT License
  *
  * Copyright (c) 2014 Tetsuharu OHZEKI <saneyuki.snyk@gmail.com>
