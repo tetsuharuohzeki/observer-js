@@ -53,12 +53,13 @@ module("ObserverSubject.add()", {
 });
 
 test("valid case", function(){
-    gObserver.handleMessage = function () {
-        ok(true, "test1");
+    gObserver.handleMessage = function (topic, data) {
+        strictEqual(topic, "test", "topic");
+        strictEqual(data, "hoge", "data");
     };
 
     gSubject.add("test", gObserver);
-    gSubject.notify("test", null);
+    gSubject.notify("test", "hoge");
 });
 test("if the arg1 is invalid", function(){
     throws(function () {
