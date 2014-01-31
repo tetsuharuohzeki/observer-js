@@ -105,13 +105,8 @@ ObserverSubject.prototype = {
             throw new Error("Not implement observer interface.");
         }
 
-        var list = null;
-        if (this._map.hasOwnProperty(aTopic)) {
-            list = this._map[aTopic];
-        }
-        else {
-            list = [];
-        }
+        var list = this._map.hasOwnProperty(aTopic) ?
+                   this._map[aTopic] : [];
 
         // check whether it has been regisetered
         var index = useArrayIndexOf ?
