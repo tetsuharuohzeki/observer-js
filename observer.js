@@ -84,8 +84,11 @@ ObserverSubject.prototype = {
             return;
         }
 
-        for (var i = 0, l = list.length; i < l; ++i) {
-            list[i].handleMessage(aTopic, aData);
+        // Create a static observer list.
+        // `remove()` does not change this list.
+        var staticList = list.concat();
+        for (var i = 0, l = staticList.length; i < l; ++i) {
+            staticList[i].handleMessage(aTopic, aData);
         }
     },
 
