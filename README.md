@@ -57,6 +57,8 @@ Notify to observers related to the topic.
 This method **does not** ensure that the subject broadcasts the message synchronously.  
 You must design your codes as it can work async.
 
+This method **does not** ensure that the subject calls observers with the registered order.
+
 #### ObserverSubject.add(topic, observer)
 - `topic`: the message id.
 - `observer`: the observer will be registerd.
