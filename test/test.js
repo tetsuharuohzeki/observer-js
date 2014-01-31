@@ -353,3 +353,26 @@ test("Assert a subject independency", function() {
     subject2.notify("test", null);
     strictEqual(flag, true, "shouldn't propagate messages to other subjects.");
 });
+
+module("Data Race", {
+    setup: baseSetup,
+    teardown: baseTeardown
+});
+test("if the observer unregister itself in calling handleMessage() loop.", function(){
+    var o1 = {
+        handleMessage: function (data, topic) {
+            gSubject.remove("test", o1);
+        }
+    };
+    var flag = false;
+    var o2 = {
+        handleMessage: function (data, topic) {
+            flag = true;
+        }
+    };
+
+    gSubject.add("test", o1);
+    gSubject.add("test", o2);
+    gSubject.notify("test", null);
+    ok(flag, "other observers should be called.");
+});
