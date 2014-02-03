@@ -67,16 +67,44 @@ ObserverSubject.prototype = Object.freeze({
             throw new Error("Not specified any topic.");
         }
 
+        // This assignment refers the list object which contains observers.
+        // It lives until the end of this function even if we set a new list
+        // to this object.
         var list = this._map[aTopic];
         if (!list) {
             return;
         }
 
-        // Create a static observer list.
-        // `remove()` does not change this list.
-        var staticList = list.concat();
-        for (var i = 0, l = staticList.length; i < l; ++i) {
-            staticList[i].handleMessage(aTopic, aData);
+        // This iteration refers to the list object being on the heap.
+        // Even if this subject modifies the list related to
+        // the topic that this handle now, it make the new list
+        // which has no effect to the list iterated now.
+        // This approach is a pseudo "copy-on-write"
+        // which is based on the assumption that all object's lifetimes are
+        // handled by garbage collection. This is tricky approach.
+        //
+        // * When adding an observer to the same topic (calling "add()")
+        //   we don't copy the current list and add the add the observer
+        //   to the current list. Although this is destructive,
+        //   its operation add the observer to the end of list.
+        //   So it does not effect to the current iterated range
+        //   of the list's length. It's would be safety.
+        //
+        // * When removing an observer from the same topic (calling "remove()"),
+        //   we copy the current list, modify it, and overwrite this object
+        //   with it. Because to remove an observer from the same topic is
+        //   destructive operation that will decrease the list's length.
+        //   It is not safety. See "remove()" method.
+        //
+        // * When removing the topic and observers related to it from this subject
+        //   (calling "_removeTopic()" via "removeTopic()" or "destory()"),
+        //   it's not safety. However, we don't make it safe.
+        //   Because, it's bad approach that the observer calls "removeTopic()"
+        //   with the topic which is passed to his "handleMessange".
+        //   It should be handled in each observers with using "remove()",
+        //   or the subject handle "removeTopic/destroy".
+        for (var i = 0, l = list.length; i < l; ++i) {
+            list[i].handleMessage(aTopic, aData);
         }
     },
 
@@ -97,6 +125,8 @@ ObserverSubject.prototype = Object.freeze({
             throw new Error("Not implement observer interface.");
         }
 
+        // This method does __not__ use a "copy-on-write" approach.
+        // See "notify()" to know about detail.
         var list = this._map[aTopic];
         if (!list) {
             list = [];
@@ -133,21 +163,34 @@ ObserverSubject.prototype = Object.freeze({
             return;
         }
 
-        var index = list.indexOf(aObserver);
+        // This method does use a "copy-on-write" approach.
+        // See "notify()" to know about detail.
+
+        // copy the list to preserve the old one.
+        var copy = list.concat();
+        var index = copy.indexOf(aObserver);
         if (index === -1) {
             return;
         }
 
-        list.splice(index, 1);
+        // manipulate the new list.
+        copy.splice(index, 1);
 
-        // if the list doesn't have any object,
-        // this remove the message id related to it.
-        if (list.length === 0) {
+        if (copy.length === 0) {
+            // if the list doesn't have any object,
+            // this remove the message id related to it.
             delete this._map[aTopic];
+        }
+        else {
+            // Override the reference for an obeservers list
+            // with the new (copied) one.
+            this._map[aTopic] = copy;
         }
     },
 
     _removeTopic: function (aTopic) {
+        // This method does __not__ use a "copy-on-write" approach.
+        // See "notify()" to know about detail.
         var list = this._map[aTopic];
         for (var i = 0, l = list.length; i < l; ++i) {
             list[i] = null;
