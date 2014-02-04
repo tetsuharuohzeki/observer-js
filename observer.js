@@ -3,7 +3,8 @@
  * @repository  https://github.com/saneyuki/observer-js
  * @version     0.2.1
  * @license     MIT License
- *
+ */
+/*
  * Copyright (c) 2014 Tetsuharu OHZEKI <saneyuki.snyk@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy

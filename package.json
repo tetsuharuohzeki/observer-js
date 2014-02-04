@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "gulp-rename": "~0.2.2",
-    "gulp-esmangle": "0.0.3",
+    "gulp-esmangle": "~1.0.0",
     "gulp": "~3.5.0"
   }
 }
