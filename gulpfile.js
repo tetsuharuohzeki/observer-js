@@ -37,6 +37,7 @@ var TARGET = "observer.min.js";
 gulp.task("minify", function() {
     var option = {
         license: true,
+        licenseRegExp: /@(?:license|preserve)/i,
     };
 
     gulp.src(SRC)
