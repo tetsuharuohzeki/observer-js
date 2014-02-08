@@ -26,9 +26,8 @@
  * THE SOFTWARE.
  */
 
-"use strict";
-
 var ObserverSubject = (function(){
+"use strict";
 
 // FIXME: for ~IE8
 var useFreeze = !!Object.freeze;
