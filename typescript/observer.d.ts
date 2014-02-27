@@ -1,5 +1,5 @@
 /*
- * TypeScript type definitions of ObserverJS 0.2+
+ * TypeScript type definitions of ObserverJS 0.3+
  *
  * @repository  https://github.com/saneyuki/observer-js
  * @license     MIT License
