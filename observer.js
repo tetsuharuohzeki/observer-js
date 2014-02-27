@@ -162,23 +162,6 @@ ObserverSubject.prototype = {
         }
     },
 
-    /**
-     *  Unregister all observers from the related topic.
-     *
-     *  @param  {string}    aTopic
-     */
-    removeTopic: function (aTopic) {
-        if (!aTopic) {
-            throw new Error("Not specified any topic.");
-        }
-
-        if ( !this._map.hasOwnProperty(aTopic) ) {
-            return;
-        }
-
-        this._removeTopic(aTopic);
-    },
-
     _removeTopic: function (aTopic) {
         var list = this._map[aTopic];
         for (var i = 0, l = list.length; i < l; ++i) {

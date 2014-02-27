@@ -37,5 +37,4 @@ var observer: Observer = {
 subject.notify(TOPIC, {});
 subject.add(TOPIC, observer);
 subject.remove(TOPIC, observer);
-subject.removeTopic(TOPIC);
 subject.destroy();
