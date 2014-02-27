@@ -26,23 +26,54 @@
 
 "use strict";
 
-// FIXME: This tests should be async.
+module("ObserverSubject.removeTopic()", {
+    setup: baseSetup,
+    teardown: baseTeardown
+});
+test("valid case", function() {
+    var TOPIC = "test";
+    var subject = new ObserverSubject();
 
-var ObserverSubject = window.ObserverSubject;
-var gSubject = null;
-var gObserver = null;
-
-
-var baseSetup = function () {
-    gSubject = new ObserverSubject();
-    gObserver = {
+    var flag1 = true;
+    var t1 = {
         handleMessage: function () {
+            flag1 = false;
         }
     };
-};
+    var flag2 = true;
+    var t2 = {
+        handleMessage: function () {
+            flag2 = false;
+        }
+    };
 
-var baseTeardown = function () {
-    gSubject = null;
-    gObserver = null;
-};
+    subject.add(TOPIC, t1);
+    subject.add(TOPIC, t2);
+
+    subject.removeTopic(TOPIC);
+
+    subject.notify(TOPIC, null);
+
+    strictEqual(flag1, true, "shouldn't broadcast the massage: 1.");
+    strictEqual(flag2, true, "shouldn't broadcast the massage: 2.");
+});
+test("if the arg is invalid", function(){
+    throws(function () {
+        gSubject.removeTopic();
+    },
+    Error,
+    "the arg is nothing.");
+
+    throws(function () {
+        gSubject.removeTopic(null);
+    },
+    Error,
+    "the arg is `null`.");
+
+    throws(function () {
+        gSubject.removeTopic(undefined);
+    },
+    Error,
+    "the arg is `undefined`.");
+});
 

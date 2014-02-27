@@ -26,23 +26,25 @@
 
 "use strict";
 
-// FIXME: This tests should be async.
-
-var ObserverSubject = window.ObserverSubject;
-var gSubject = null;
-var gObserver = null;
-
-
-var baseSetup = function () {
-    gSubject = new ObserverSubject();
-    gObserver = {
-        handleMessage: function () {
+module("Safety: Data Race", {
+    setup: baseSetup,
+    teardown: baseTeardown
+});
+test("if the observer unregister itself in calling handleMessage() loop.", function(){
+    var o1 = {
+        handleMessage: function (data, topic) {
+            gSubject.remove("test", o1);
         }
     };
-};
+    var flag = false;
+    var o2 = {
+        handleMessage: function (data, topic) {
+            flag = true;
+        }
+    };
 
-var baseTeardown = function () {
-    gSubject = null;
-    gObserver = null;
-};
-
+    gSubject.add("test", o1);
+    gSubject.add("test", o2);
+    gSubject.notify("test", null);
+    ok(flag, "other observers should be called.");
+});

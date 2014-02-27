@@ -26,23 +26,34 @@
 
 "use strict";
 
-// FIXME: This tests should be async.
+module("ObserverSubject.notify()", {
+    setup: baseSetup,
+    teardown: baseTeardown
+});
+test("valid case", function(){
+    var subject = new ObserverSubject();
 
-var ObserverSubject = window.ObserverSubject;
-var gSubject = null;
-var gObserver = null;
-
-
-var baseSetup = function () {
-    gSubject = new ObserverSubject();
-    gObserver = {
-        handleMessage: function () {
+    subject.add("test1", {
+        handleMessage: function (aTopic, aData) {
+            strictEqual(aTopic, "test1", "1: valid topic");
+            strictEqual(aData, "hoge", "1: valid data");
         }
-    };
-};
+    });
+    subject.notify("test1", "hoge");
 
-var baseTeardown = function () {
-    gSubject = null;
-    gObserver = null;
-};
+    subject.add("test2", {
+        handleMessage: function (aTopic, aData) {
+            strictEqual(aTopic, "test2", "2: valid topic");
+            strictEqual(aData, null, "2: valid data");
+        }
+    });
+    subject.notify("test2", null);
 
+    subject.add("test3", {
+        handleMessage: function (aTopic, aData) {
+            strictEqual(aTopic, "test3", "3: valid topic");
+            strictEqual(aData, undefined, "3: valid data");
+        }
+    });
+    subject.notify("test3", undefined);
+});

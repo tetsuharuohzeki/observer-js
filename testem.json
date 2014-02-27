@@ -2,6 +2,7 @@
   "framework": "qunit",
   "src_files": [
     "observer.js",
+    "test/base.js",
     "test/*.js"
   ]
 }

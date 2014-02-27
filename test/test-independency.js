@@ -26,23 +26,21 @@
 
 "use strict";
 
-// FIXME: This tests should be async.
+module("Subject Independency", {
+    setup: function(){},
+    teardown: function(){}
+});
+test("Assert a subject independency", function() {
+    var subject1 = new ObserverSubject();
+    var subject2 = new ObserverSubject();
 
-var ObserverSubject = window.ObserverSubject;
-var gSubject = null;
-var gObserver = null;
-
-
-var baseSetup = function () {
-    gSubject = new ObserverSubject();
-    gObserver = {
-        handleMessage: function () {
+    var flag =true;
+    subject1.add("test", {
+        handleMessage: function (aData) {
+            flag = false;
         }
-    };
-};
+    });
 
-var baseTeardown = function () {
-    gSubject = null;
-    gObserver = null;
-};
-
+    subject2.notify("test", null);
+    strictEqual(flag, true, "shouldn't propagate messages to other subjects.");
+});
