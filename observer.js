@@ -158,11 +158,10 @@ ObserverSubject.prototype = Object.freeze({
      *  You can use this method as a destructor.
      */
     destroy: function () {
-        // FIXME: use Object.keys();
-        for (var topic in this._map) {
-            if ( this._map.hasOwnProperty(topic) ) {
-                this._removeTopic(topic);
-            }
+        var keys = Object.keys(this._map);
+        for (var i = 0, l = keys.length; i < l; ++i) {
+            var topic = keys[i];
+            this._removeTopic(topic);
         }
 
         Object.freeze(this._map);
