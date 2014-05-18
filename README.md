@@ -1,7 +1,7 @@
 # ObserverJS
 * Simple message passing library
 * Support an environment which can use basic features of ECMAScript 5.
-  * +IE6, 7, 8 compatible.
+  * [Old version](https://github.com/saneyuki/observer-js/releases/tag/version-0.3) had +IE6, 7, 8 compatible.
 
 ## How to Use
 ```javascript
