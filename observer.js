@@ -39,9 +39,11 @@ var ObserverSubject = function () {
      * @private
      * @type    {Object.<string, Array.<{ handleMessage: function }>>}
      *
+     * We create this `Object` with `null` to use as hashmap completely.
+     *
      * FIXME: Use ES6 Map
      */
-    this._map = {};
+    this._map = Object.create(null);
 
     Object.freeze(this);
 };
@@ -95,8 +97,10 @@ ObserverSubject.prototype = Object.freeze({
             throw new Error("Not implement observer interface.");
         }
 
-        var list = this._map.hasOwnProperty(aTopic) ?
-                   this._map[aTopic] : [];
+        var list = this._map[aTopic];
+        if (!list) {
+            list = [];
+        }
 
         // check whether it has been regisetered
         var index = list.indexOf(aObserver);
@@ -124,11 +128,11 @@ ObserverSubject.prototype = Object.freeze({
         // at this. Even if `aObserver` does not implement it, this method will
         // answer that `aObserver` is not registered to this subject.
 
-        if ( !this._map.hasOwnProperty(aTopic) ) {
+        var list = this._map[aTopic];
+        if (!list) {
             return;
         }
 
-        var list = this._map[aTopic];
         var index = list.indexOf(aObserver);
         if (index === -1) {
             return;
@@ -158,9 +162,8 @@ ObserverSubject.prototype = Object.freeze({
      *  You can use this method as a destructor.
      */
     destroy: function () {
-        var keys = Object.keys(this._map);
-        for (var i = 0, l = keys.length; i < l; ++i) {
-            var topic = keys[i];
+        var map = this._map;
+        for (var topic in map) {
             this._removeTopic(topic);
         }
 
