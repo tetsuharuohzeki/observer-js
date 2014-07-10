@@ -1,8 +1,8 @@
 {
-  "framework": "qunit",
+  "framework": "mocha",
   "src_files": [
     "observer.js",
-    "test/base.js",
+    "./node_modules/better-assert/index.js",
     "test/*.js"
   ]
 }
