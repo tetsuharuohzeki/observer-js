@@ -1,8 +1,14 @@
 {
   "framework": "mocha",
+  "before_tests": "gulp espower",
+  "on_exit": "rm -rf ./powered-test/",
   "src_files": [
     "observer.js",
-    "./node_modules/better-assert/index.js",
     "test/*.js"
+  ],
+  "serve_files": [
+    "./observer.js",
+    "./node_modules/power-assert/build/power-assert.js",
+    "./powered-test/*.js"
   ]
 }

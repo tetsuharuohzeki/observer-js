@@ -29,6 +29,7 @@
 var gulp = require("gulp");
 var esmangle = require("gulp-esmangle");
 var rename = require("gulp-rename");
+var espower = require("gulp-espower");
 
 var SRC = "./observer.js";
 var DIST = "./dist/";
@@ -44,4 +45,11 @@ gulp.task("minify", function() {
         .pipe( esmangle(option) )
         .pipe( rename(TARGET) )
         .pipe( gulp.dest(DIST) );
+});
+
+gulp.task("espower", function() {
+    return gulp
+        .src("test/**/test-*.js")
+        .pipe(espower())
+        .pipe(gulp.dest("powered-test"));
 });
