@@ -10,7 +10,7 @@
     "gulp": "^3.8.6",
     "gulp-esmangle": "^1.1.1",
     "gulp-espower": "^0.7.1",
-    "gulp-rename": "^0.2.2",
+    "gulp-rename": "^1.2.0",
     "power-assert": "^0.7.2"
   }
 }
