@@ -26,95 +26,132 @@
 
 "use strict";
 
-module("ObserverSubject.remove()", {
-    setup: baseSetup,
-    teardown: baseTeardown
-});
-test("valid case: unregister the single observer.", function(){
-    // this will be false if `gObserver.handleMessage()` called.
-    var flag = true;
-    gObserver.handleMessage = function () {
-        flag = false;
-    };
+describe("ObserverSubject.remove()", function(){
+    var ObserverSubject = window.ObserverSubject;
+    var gSubject = null;
+    var gObserver = null;
 
-    // add gObserver once.
-    gSubject.add("test", gObserver);
-    // remove gObserver immidiately.
-    gSubject.remove("test", gObserver);
+    beforeEach(function(){
+        gSubject = new ObserverSubject();
+        gObserver = {
+            handleMessage: function () {
+            }
+        };
+    });
 
-    // this shouldn't call `gObserver.handleMessage()`.
-    gSubject.notify("test", null);
-    strictEqual(flag, true, "should not call `gObserver.handleMessage()` after remove it");
-});
-test("valid case: unregister the multiple observer.", function(){
-    // flags will be false if `gObserver.handleMessage()` called.
-    var isCalled1 = true;
-    var o1 = {
-        handleMessage: function () {
-            isCalled1 = false;
-        }
-    };
+    afterEach(function(){
+        gSubject = null;
+        gObserver = null;
+    });
 
-    var isCalled2 = true;
-    var o2 = {
-        handleMessage: function () {
-            isCalled2 = false;
-        }
-    };
+    it("valid case: unregister the single observer.", function(){
+        // this will be false if `gObserver.handleMessage()` called.
+        var flag = true;
+        gObserver.handleMessage = function () {
+            flag = false;
+        };
 
-    var isCalled3 = true;
-    var o3 = {
-        handleMessage: function () {
-            isCalled3 = false;
-        }
-    };
+        // add gObserver once.
+        gSubject.add("test", gObserver);
+        // remove gObserver immidiately.
+        gSubject.remove("test", gObserver);
 
-    gSubject.add("test", o1);
-    gSubject.add("test", o2);
-    gSubject.add("test", o3);
+        // this shouldn't call `gObserver.handleMessage()`.
+        gSubject.notify("test", null);
+        assert(flag === true, "should not call `gObserver.handleMessage()` after remove it");
+    });
 
-    gSubject.remove("test", o2);
-    gSubject.notify("test", null);
+    it("valid case: unregister the multiple observer.", function(){
+        // flags will be false if `gObserver.handleMessage()` called.
+        var isCalled1 = true;
+        var o1 = {
+            handleMessage: function () {
+                isCalled1 = false;
+            }
+        };
 
-    strictEqual(isCalled1, false, "should call 'o1.handleMessage()'.");
-    strictEqual(isCalled2, true, "should not call 'o2.handleMessage()' after remove it");
-    strictEqual(isCalled3, false, "should call 'o3.handleMessage()'.");
-});
-test("if the arg1 is invalid", function(){
-    throws(function () {
-        gSubject.remove();
-    },
-    Error,
-    "the arg1 is nothing.");
+        var isCalled2 = true;
+        var o2 = {
+            handleMessage: function () {
+                isCalled2 = false;
+            }
+        };
 
-    throws(function () {
-        gSubject.remove(null, gObserver);
-    },
-    Error,
-    "the arg1 is `null`.");
+        var isCalled3 = true;
+        var o3 = {
+            handleMessage: function () {
+                isCalled3 = false;
+            }
+        };
 
-    throws(function () {
-        gSubject.remove(undefined, gObserver);
-    },
-    Error,
-    "the arg1 is `undefined`.");
-});
-test("if the arg2 is invalid", function(){
-    throws(function () {
-        gSubject.remove("test");
-    },
-    Error,
-    "the arg2 is nothing.");
+        gSubject.add("test", o1);
+        gSubject.add("test", o2);
+        gSubject.add("test", o3);
 
-    throws(function () {
-        gSubject.remove("test", null);
-    },
-    Error,
-    "the arg2 is `null`.");
+        gSubject.remove("test", o2);
+        gSubject.notify("test", null);
 
-    throws(function () {
-        gSubject.remove("test", undefined);
-    },
-    Error,
-    "the arg2 is `undefined`.");
+        assert(isCalled1 === false, "should call 'o1.handleMessage()'.");
+        assert(isCalled2 === true, "should not call 'o2.handleMessage()' after remove it");
+        assert(isCalled3 === false, "should call 'o3.handleMessage()'.");
+    });
+
+    describe("if the arg1 is invalid", function(){
+        it("the arg1 is nothing.", function(){
+            try {
+                gSubject.remove();
+            }
+            catch (e) {
+                assert(e instanceof Error);
+            }
+        });
+
+        it("the arg1 is `null`.", function(){
+            try {
+                gSubject.remove(null, gObserver);
+            }
+            catch (e) {
+                assert(e instanceof Error);
+            }
+        });
+
+        it("the arg1 is `undefined`.", function(){
+            try {
+                gSubject.remove(undefined, gObserver);
+            }
+            catch (e) {
+                assert(e instanceof Error);
+            }
+        });
+    });
+
+    describe("if the arg2 is invalid", function(){
+        it("the arg2 is nothing.", function(){
+            try {
+                gSubject.remove("test");
+            }
+            catch (e) {
+                assert(e instanceof Error);
+            }
+        });
+
+        it("the arg2 is `null`.", function(){
+            try {
+                gSubject.remove("test", null);
+            }
+            catch (e) {
+                assert(e instanceof Error);
+            }
+        });
+
+        it("the arg2 is `undefined`.", function(){
+            try {
+                gSubject.remove("test", undefined);
+            }
+            catch (e) {
+                assert(e instanceof Error);
+            }
+        });
+    });
+
 });

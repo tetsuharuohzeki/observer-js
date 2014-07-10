@@ -26,34 +26,50 @@
 
 "use strict";
 
-module("ObserverSubject.notify()", {
-    setup: baseSetup,
-    teardown: baseTeardown
-});
-test("valid case", function(){
-    var subject = new ObserverSubject();
 
-    subject.add("test1", {
-        handleMessage: function (aTopic, aData) {
-            strictEqual(aTopic, "test1", "1: valid topic");
-            strictEqual(aData, "hoge", "1: valid data");
-        }
-    });
-    subject.notify("test1", "hoge");
+describe("ObserverSubject.notify()", function(){
+    var ObserverSubject = window.ObserverSubject;
+    var gSubject = null;
+    var gObserver = null;
 
-    subject.add("test2", {
-        handleMessage: function (aTopic, aData) {
-            strictEqual(aTopic, "test2", "2: valid topic");
-            strictEqual(aData, null, "2: valid data");
-        }
+    beforeEach(function(){
+        gSubject = new ObserverSubject();
+        gObserver = {
+            handleMessage: function () {
+            }
+        };
     });
-    subject.notify("test2", null);
 
-    subject.add("test3", {
-        handleMessage: function (aTopic, aData) {
-            strictEqual(aTopic, "test3", "3: valid topic");
-            strictEqual(aData, undefined, "3: valid data");
-        }
+    afterEach(function(){
+        gSubject = null;
+        gObserver = null;
     });
-    subject.notify("test3", undefined);
+
+    it("valid case", function(){
+        var subject = new ObserverSubject();
+
+        subject.add("test1", {
+            handleMessage: function (aTopic, aData) {
+                assert(aTopic === "test1", "1: valid topic");
+                assert(aData === "hoge", "1: valid data");
+            }
+        });
+        subject.notify("test1", "hoge");
+
+        subject.add("test2", {
+            handleMessage: function (aTopic, aData) {
+                assert(aTopic === "test2", "2: valid topic");
+                assert(aData === null, "2: valid data");
+            }
+        });
+        subject.notify("test2", null);
+
+        subject.add("test3", {
+            handleMessage: function (aTopic, aData) {
+                assert(aTopic === "test3", "3: valid topic");
+                assert(aData === undefined, "3: valid data");
+            }
+        });
+        subject.notify("test3", undefined);
+    });
 });

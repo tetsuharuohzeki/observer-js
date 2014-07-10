@@ -26,21 +26,22 @@
 
 "use strict";
 
-module("Subject Independency", {
-    setup: function(){},
-    teardown: function(){}
-});
-test("Assert a subject independency", function() {
-    var subject1 = new ObserverSubject();
-    var subject2 = new ObserverSubject();
+describe("Subject Independency", function(){
+    var ObserverSubject = window.ObserverSubject;
 
-    var flag =true;
-    subject1.add("test", {
-        handleMessage: function (aData) {
-            flag = false;
-        }
+    it("Assert a subject independency", function(){
+        var subject1 = new ObserverSubject();
+        var subject2 = new ObserverSubject();
+
+        var flag =true;
+        subject1.add("test", {
+            handleMessage: function (aData) {
+                flag = false;
+            }
+        });
+
+        subject2.notify("test", null);
+
+        assert(flag === true, "shouldn't propagate messages to other subjects");
     });
-
-    subject2.notify("test", null);
-    strictEqual(flag, true, "shouldn't propagate messages to other subjects.");
 });

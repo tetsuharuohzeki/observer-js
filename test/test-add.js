@@ -26,69 +26,113 @@
 
 "use strict";
 
-module("ObserverSubject.add()", {
-    setup: baseSetup,
-    teardown: baseTeardown
-});
+describe("ObserverSubject.add()", function(){
+    var ObserverSubject = window.ObserverSubject;
+    var gSubject = null;
+    var gObserver = null;
 
-test("valid case", function(){
-    gObserver.handleMessage = function (topic, data) {
-        strictEqual(topic, "test", "topic");
-        strictEqual(data, "hoge", "data");
-    };
+    beforeEach(function(){
+        gSubject = new ObserverSubject();
+        gObserver = {
+            handleMessage: function () {
+            }
+        };
+    });
 
-    gSubject.add("test", gObserver);
-    gSubject.notify("test", "hoge");
-});
-test("if the arg1 is invalid", function(){
-    throws(function () {
-        gSubject.add();
-    },
-    Error,
-    "the arg1 is nothing.");
+    afterEach(function(){
+        gSubject = null;
+        gObserver = null;
+    });
 
-    throws(function () {
-        gSubject.add(null, gObserver);
-    },
-    Error,
-    "the arg1 is `null`.");
+    describe("valid case", function(){
+        it("valid case", function(done){
+            gObserver.handleMessage = function (topic, data) {
+                assert(topic === "test", "test: topic");
+                assert(data === "hoge", "test: data");
+                done();
+            };
 
-    throws(function () {
-        gSubject.add(undefined, gObserver);
-    },
-    Error,
-    "the arg1 is `undefined`.");
-});
-test("if the arg2 is invalid", function(){
-    throws(function () {
-        gSubject.add("test");
-    },
-    Error,
-    "the arg2 is nothing.");
-
-    throws(function () {
-        gSubject.add("test", null);
-    },
-    Error,
-    "the arg2 is `null`.");
-
-    throws(function () {
-        gSubject.add("test", undefined);
-    },
-    Error,
-    "the arg2 is `undefined`.");
-
-    throws(function () {
-        gSubject.add("test", Object.create(null));
-    },
-    Error,
-    "the arg2 doesn't have `handleMessage` method.");
-
-    throws(function () {
-        gSubject.add("test", {
-            handleMessage: "test"
+            gSubject.add("test", gObserver);
+            gSubject.notify("test", "hoge");
         });
-    },
-    Error,
-    "the type of arg2's `handleMessage` method is not a function.");
+    });
+
+    describe("if the arg1 is invalid", function(){
+        it("the arg1 is nothing.", function () {
+            try {
+                gSubject.add();
+            }
+            catch (e) {
+                assert(e instanceof Error);
+            }
+        });
+
+        it("the arg1 is `null`.", function () {
+            try {
+                gSubject.add(null, gObserver);
+            }
+            catch (e) {
+                assert(e instanceof Error);
+            }
+        });
+
+        it("the arg1 is `undefined`.", function () {
+            try {
+                gSubject.add(undefined, gObserver);
+            }
+            catch (e) {
+                assert(e instanceof Error);
+            }
+        });
+    });
+
+    describe("if the arg2 is invalid", function(){
+        it("the arg2 is nothing.", function () {
+            try {
+                gSubject.add("test");
+            }
+            catch (e) {
+                assert(e instanceof Error);
+            }
+        });
+
+        it("the arg2 is `null`.", function () {
+            try {
+                gSubject.add("test", null);
+            }
+            catch (e) {
+                assert(e instanceof Error);
+            }
+        });
+
+        it("the arg2 is `undefined`.", function () {
+            try {
+                gSubject.add("test", undefined);
+            }
+            catch (e) {
+                assert(e instanceof Error);
+            }
+        });
+
+        it("the arg2 doesn't have `handleMessage` method.", function () {
+            try {
+                gSubject.add("test", Object.create(null));
+            }
+            catch (e) {
+                assert(e instanceof Error);
+            }
+        });
+
+        it("the type of arg2's `handleMessage` method is not a function.", function () {
+            try {
+            gSubject.add("test", {
+                handleMessage: "test"
+            });
+            }
+            catch (e) {
+                assert(e instanceof Error);
+            }
+        });
+    });
+
 });

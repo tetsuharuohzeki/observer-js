@@ -26,25 +26,40 @@
 
 "use strict";
 
-module("Safety: Data Race", {
-    setup: baseSetup,
-    teardown: baseTeardown
-});
-test("if the observer unregister itself in calling handleMessage() loop.", function(){
-    var o1 = {
-        handleMessage: function (data, topic) {
-            gSubject.remove("test", o1);
-        }
-    };
-    var flag = false;
-    var o2 = {
-        handleMessage: function (data, topic) {
-            flag = true;
-        }
-    };
+describe("Safety: Data Race", function(){
+    var ObserverSubject = window.ObserverSubject;
+    var gSubject = null;
+    var gObserver = null;
 
-    gSubject.add("test", o1);
-    gSubject.add("test", o2);
-    gSubject.notify("test", null);
-    ok(flag, "other observers should be called.");
+    beforeEach(function(){
+        gSubject = new ObserverSubject();
+        gObserver = {
+            handleMessage: function () {
+            }
+        };
+    });
+
+    afterEach(function(){
+        gSubject = null;
+        gObserver = null;
+    });
+
+    it("if the observer unregister itself in calling handleMessage() loop.", function(){
+        var o1 = {
+            handleMessage: function (data, topic) {
+                gSubject.remove("test", o1);
+            }
+        };
+        var flag = false;
+        var o2 = {
+            handleMessage: function (data, topic) {
+                flag = true;
+            }
+        };
+
+        gSubject.add("test", o1);
+        gSubject.add("test", o2);
+        gSubject.notify("test", null);
+        assert(flag === true, "other observers should be called.");
+    });
 });

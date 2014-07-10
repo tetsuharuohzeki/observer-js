@@ -26,45 +26,60 @@
 
 "use strict";
 
-module("ObserverSubject.destroy()", {
-    setup: baseSetup,
-    teardown: baseTeardown
-});
-test("finalize the subject.", function(){
-    var isCalled1 = true;
-    var o1 = {
-        handleMessage: function () {
-            isCalled1 = false;
-        }
-    };
+describe("ObserverSubject.destroy()", function(){
+    var ObserverSubject = window.ObserverSubject;
+    var gSubject = null;
+    var gObserver = null;
 
-    var isCalled2 = true;
-    var o2 = {
-        handleMessage: function () {
-            isCalled2 = false;
-        }
-    };
+    beforeEach(function(){
+        gSubject = new ObserverSubject();
+        gObserver = {
+            handleMessage: function () {
+            }
+        };
+    });
 
-    var isCalled3 = true;
-    var o3 = {
-        handleMessage: function () {
-            isCalled3 = false;
-        }
-    };
+    afterEach(function(){
+        gSubject = null;
+        gObserver = null;
+    });
 
-    gSubject.add("test1", o1);
-    gSubject.add("test2", o2);
-    gSubject.add("test3", o3);
+    it("finalize the subject", function(){
+        var isCalled1 = true;
+        var o1 = {
+            handleMessage: function () {
+                isCalled1 = false;
+            }
+        };
 
-    gSubject.destroy();
+        var isCalled2 = true;
+        var o2 = {
+            handleMessage: function () {
+                isCalled2 = false;
+            }
+        };
 
-    gSubject.notify("test1", null);
-    gSubject.notify("test2", null);
-    gSubject.notify("test3", null);
+        var isCalled3 = true;
+        var o3 = {
+            handleMessage: function () {
+                isCalled3 = false;
+            }
+        };
 
-    strictEqual(isCalled2, true, "should not call 'o1.handleMessage()' after the subject was destroyed.");
-    strictEqual(isCalled2, true, "should not call 'o2.handleMessage()' after the subject was destroyed.");
-    strictEqual(isCalled2, true, "should not call 'o3.handleMessage()' after the subject was destroyed.");
+        gSubject.add("test1", o1);
+        gSubject.add("test2", o2);
+        gSubject.add("test3", o3);
+
+        gSubject.destroy();
+
+        gSubject.notify("test1", null);
+        gSubject.notify("test2", null);
+        gSubject.notify("test3", null);
+
+        assert(isCalled2 === true, "should not call 'o1.handleMessage()' after the subject was destroyed.");
+        assert(isCalled2 === true, "should not call 'o2.handleMessage()' after the subject was destroyed.");
+        assert(isCalled2 === true, "should not call 'o3.handleMessage()' after the subject was destroyed.");
+    });
 });
 
 
