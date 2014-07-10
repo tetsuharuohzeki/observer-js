@@ -7,9 +7,10 @@
     "url": "https://github.com/saneyuki/observer-js.git"
   },
   "devDependencies": {
-    "better-assert": "^1.0.0",
     "gulp": "^3.5.6",
     "gulp-esmangle": "^1.1.1",
-    "gulp-rename": "^0.2.2"
+    "gulp-espower": "^0.7.1",
+    "gulp-rename": "^0.2.2",
+    "power-assert": "^0.7.2"
   }
 }
