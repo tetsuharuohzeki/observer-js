@@ -26,42 +26,9 @@
 
 "use strict";
 
-var gulp = require("gulp");
-var esmangle = require("gulp-esmangle");
-var rename = require("gulp-rename");
-var browserify = require("browserify");
-var espowerify = require("espowerify");
-var transform = require("vinyl-transform");
-
-var SRC = "./observer.js";
-var DIST = "./dist/";
-var TARGET = "observer.min.js";
-
-gulp.task("minify", function() {
-    var option = {
-        license: true,
-        licenseRegExp: /@(?:license|preserve)/i,
-    };
-
-    gulp.src(SRC)
-        .pipe( esmangle(option) )
-        .pipe( rename(TARGET) )
-        .pipe( gulp.dest(DIST) );
-});
-
-gulp.task("espower", function() {
-    var option = {
-        insertGlobals : false,
-        debug : true,
-    };
-
-    var browserified = transform(function(filename){
-        var b = browserify(option).add(filename)
-                                  .transform(espowerify);
-        return b.bundle();
-    });
-
-    gulp.src("test/manifest.js")
-        .pipe(browserified)
-        .pipe(gulp.dest("powered-test"));
-});
+require("./test-add");
+require("./test-destroy");
+require("./test-independency");
+require("./test-notify");
+require("./test-remove");
+require("./test-safety");

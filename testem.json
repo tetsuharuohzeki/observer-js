@@ -4,11 +4,10 @@
   "on_exit": "rm -rf ./powered-test/",
   "src_files": [
     "observer.js",
-    "test/*.js"
+    "test/manifest.js"
   ],
   "serve_files": [
     "./observer.js",
-    "./node_modules/power-assert/build/power-assert.js",
-    "./powered-test/*.js"
+    "./powered-test/manifest.js"
   ]
 }

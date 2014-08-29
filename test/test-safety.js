@@ -26,6 +26,8 @@
 
 "use strict";
 
+var assert = require("power-assert");
+
 describe("Safety: Data Race", function(){
     var ObserverSubject = window.ObserverSubject;
     var gSubject = null;
