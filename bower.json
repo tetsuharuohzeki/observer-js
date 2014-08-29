@@ -1,0 +1,25 @@
+{
+    "name": "observer-js",
+    "description": "Simple message passing library.",
+    "version": "0.4.0",
+    "authors": [
+        "Tetsuharu OHZEKI <saneyuki.snyk@gmail.com>"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/saneyuki/observer-js"
+    },
+    "licenses": {
+        "type": "MIT",
+        "url": "https://github.com/saneyuki/observer-js/raw/master/LICENSE.MIT"
+    },
+    "main": "observer.js",
+    "ignore": [
+        "gulpfile.js",
+        "node_modules",
+        "package.json",
+        "test",
+        "testem.json",
+        "typescript/test"
+    ]
+}
