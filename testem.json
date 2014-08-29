@@ -4,7 +4,7 @@
   "on_exit": "rm -rf ./powered-test/",
   "src_files": [
     "observer.js",
-    "test/manifest.js"
+    "test/**/*.js"
   ],
   "serve_files": [
     "./observer.js",
