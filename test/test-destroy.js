@@ -26,6 +26,8 @@
 
 "use strict";
 
+var assert = require("power-assert");
+
 describe("ObserverSubject.destroy()", function(){
     var ObserverSubject = window.ObserverSubject;
     var gSubject = null;

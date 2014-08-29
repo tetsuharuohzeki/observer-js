@@ -26,6 +26,7 @@
 
 "use strict";
 
+var assert = require("power-assert");
 
 describe("ObserverSubject.notify()", function(){
     var ObserverSubject = window.ObserverSubject;

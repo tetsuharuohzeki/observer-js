@@ -26,6 +26,8 @@
 
 "use strict";
 
+var assert = require("power-assert");
+
 describe("Subject Independency", function(){
     var ObserverSubject = window.ObserverSubject;
 
