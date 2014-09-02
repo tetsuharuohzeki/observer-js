@@ -30,38 +30,38 @@ var assert = require("power-assert");
 
 describe("Safety: Data Race", function(){
     var ObserverSubject = window.ObserverSubject;
-    var gSubject = null;
-    var gObserver = null;
 
-    beforeEach(function(){
-        gSubject = new ObserverSubject();
-        gObserver = {
-            handleMessage: function () {
-            }
-        };
-    });
-
-    afterEach(function(){
-        gSubject = null;
-        gObserver = null;
-    });
-
-    it("if the observer unregister itself in calling handleMessage() loop.", function(){
-        var o1 = {
-            handleMessage: function (data, topic) {
-                gSubject.remove("test", o1);
-            }
-        };
+    describe("if the observer unregister itself in calling handleMessage() loop.", function () {
+        var gSubject = null;
         var flag = false;
-        var o2 = {
-            handleMessage: function (data, topic) {
-                flag = true;
-            }
-        };
 
-        gSubject.add("test", o1);
-        gSubject.add("test", o2);
-        gSubject.notify("test", null);
-        assert(flag === true, "other observers should be called.");
+        before(function(done){
+            gSubject = new ObserverSubject();
+
+            var o1 = {
+                handleMessage: function (data, topic) {
+                    gSubject.remove("test", o1);
+                }
+            };
+            gSubject.add("test", o1);
+
+            var o2 = {
+                handleMessage: function (data, topic) {
+                    flag = true;
+                    done();
+                }
+            };
+            gSubject.add("test", o2);
+
+            gSubject.notify("test", null);
+        });
+
+        after(function(){
+            gSubject = null;
+        });
+
+        it("other observers should be called.", function(){
+            assert(flag === true);
+        });
     });
 });
