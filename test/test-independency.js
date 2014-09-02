@@ -30,20 +30,30 @@ var assert = require("power-assert");
 
 describe("Subject Independency", function(){
     var ObserverSubject = window.ObserverSubject;
+    var subject1 = null;
+    var subject2 = null;
+    var flag = true;
 
-    it("Assert a subject independency", function(){
-        var subject1 = new ObserverSubject();
-        var subject2 = new ObserverSubject();
+    before(function(done){
+        subject1 = new ObserverSubject();
+        subject2 = new ObserverSubject();
 
-        var flag =true;
         subject1.add("test", {
             handleMessage: function (aData) {
                 flag = false;
             }
         });
 
-        subject2.notify("test", null);
+        subject2.add("test", {
+            handleMessage: function (aData) {
+                done();
+            }
+        });
 
-        assert(flag === true, "shouldn't propagate messages to other subjects");
+        subject2.notify("test", null);
+    });
+
+    it("shouldn't propagate messages to other subjects", function(){
+        assert(flag === true);
     });
 });

@@ -30,110 +30,182 @@ var assert = require("power-assert");
 
 describe("ObserverSubject.add()", function(){
     var ObserverSubject = window.ObserverSubject;
-    var gSubject = null;
-    var gObserver = null;
-
-    beforeEach(function(){
-        gSubject = new ObserverSubject();
-        gObserver = {
-            handleMessage: function () {
-            }
-        };
-    });
-
-    afterEach(function(){
-        gSubject = null;
-        gObserver = null;
-    });
 
     describe("valid case", function(){
-        it("valid case", function(done){
-            gObserver.handleMessage = function (topic, data) {
-                assert(topic === "test", "test: topic");
-                assert(data === "hoge", "test: data");
-                done();
+        var resultTopic = "";
+        var resultData = "";
+
+        before(function(done){
+            var gSubject = new ObserverSubject();
+            var gObserver = {
+                handleMessage: function (topic, data) {
+                    resultTopic = topic;
+                    resultData = data;
+
+                    done();
+                }
             };
 
             gSubject.add("test", gObserver);
             gSubject.notify("test", "hoge");
         });
+
+        it("resultTopic should be assigned the expected value.", function(){
+            assert.strictEqual(resultTopic, "test");
+        });
+
+        it("resultData should be assigned the expected value.", function(){
+            assert.strictEqual(resultData, "hoge");
+        });
     });
 
     describe("if the arg1 is invalid", function(){
-        it("the arg1 is nothing.", function () {
-            try {
-                gSubject.add();
-            }
-            catch (e) {
-                assert(e instanceof Error);
-            }
+        describe("the arg1 is nothing.", function () {
+            var error = null;
+
+            before(function(){
+                var gSubject = new ObserverSubject();
+                try {
+                    gSubject.add();
+                }
+                catch (e) {
+                    error = e;
+                }
+            });
+
+            it("should be the instance of Error", function () {
+                assert(error instanceof Error);
+            });
+
+            it("should be the expected message", function () {
+                assert.strictEqual(error.message, "Aruguments are not passed fully.");
+            });
         });
 
-        it("the arg1 is `null`.", function () {
-            try {
-                gSubject.add(null, gObserver);
-            }
-            catch (e) {
-                assert(e instanceof Error);
-            }
-        });
+        describe("the arg1 is `null`", function () {
+            var error = null;
 
-        it("the arg1 is `undefined`.", function () {
-            try {
-                gSubject.add(undefined, gObserver);
-            }
-            catch (e) {
-                assert(e instanceof Error);
-            }
+            before(function(){
+                var gSubject = new ObserverSubject();
+                var gObserver = {
+                    handleMessage: function (topic, data) {
+                    }
+                };
+
+                try {
+                    gSubject.add(null, gObserver);
+                }
+                catch (e) {
+                    error = e;
+                }
+            });
+
+            it("should be the instance of Error", function () {
+                assert(error instanceof Error);
+            });
+
+            it("should be the expected message", function () {
+                assert.strictEqual(error.message, "Aruguments are not passed fully.");
+            });
         });
     });
 
     describe("if the arg2 is invalid", function(){
-        it("the arg2 is nothing.", function () {
-            try {
-                gSubject.add("test");
-            }
-            catch (e) {
-                assert(e instanceof Error);
-            }
-        });
+        describe("the arg2 is nothing", function () {
+            var error = null;
 
-        it("the arg2 is `null`.", function () {
-            try {
-                gSubject.add("test", null);
-            }
-            catch (e) {
-                assert(e instanceof Error);
-            }
-        });
+            before(function(){
+                var gSubject = new ObserverSubject();
 
-        it("the arg2 is `undefined`.", function () {
-            try {
-                gSubject.add("test", undefined);
-            }
-            catch (e) {
-                assert(e instanceof Error);
-            }
-        });
-
-        it("the arg2 doesn't have `handleMessage` method.", function () {
-            try {
-                gSubject.add("test", Object.create(null));
-            }
-            catch (e) {
-                assert(e instanceof Error);
-            }
-        });
-
-        it("the type of arg2's `handleMessage` method is not a function.", function () {
-            try {
-            gSubject.add("test", {
-                handleMessage: "test"
+                try {
+                    gSubject.add("test");
+                }
+                catch (e) {
+                    error = e;
+                }
             });
-            }
-            catch (e) {
-                assert(e instanceof Error);
-            }
+
+            it("should be the instance of Error", function () {
+                assert(error instanceof Error);
+            });
+
+            it("should be the expected message", function () {
+                assert.strictEqual(error.message, "Aruguments are not passed fully.");
+            });
+        });
+
+        describe("the arg2 is `null`", function () {
+            var error = null;
+
+            before(function(){
+                var gSubject = new ObserverSubject();
+
+                try {
+                    gSubject.add("test", null);
+                }
+                catch (e) {
+                    error = e;
+                }
+            });
+
+            it("should be the instance of Error", function () {
+                assert(error instanceof Error);
+            });
+
+            it("should be the expected message", function () {
+                assert.strictEqual(error.message, "Aruguments are not passed fully.");
+            });
+        });
+
+        describe("the arg2 doesn't have `handleMessage` method", function () {
+            var error = null;
+
+            before(function(){
+                var gSubject = new ObserverSubject();
+
+                try {
+                    gSubject.add("test", Object.create(null));
+                }
+                catch (e) {
+                    error = e;
+                }
+            });
+
+            it("should be the instance of Error", function () {
+                assert(error instanceof Error);
+            });
+
+            it("should be the expected message", function () {
+                assert.strictEqual(error.message, "Not implement observer interface.");
+            });
+        });
+
+        describe("the type of arg2's `handleMessage` method is not a function", function () {
+            var error = null;
+
+            before(function(){
+                var gSubject = new ObserverSubject();
+                var gObserver = {
+                    handleMessage: "test"
+                };
+
+                try {
+                    gSubject.add("test", {
+                        handleMessage: "test"
+                    });
+                }
+                catch (e) {
+                    error = e;
+                }
+            });
+
+            it("should be the instance of Error", function () {
+                assert(error instanceof Error);
+            });
+
+            it("should be the expected message", function () {
+                assert.strictEqual(error.message, "Not implement observer interface.");
+            });
         });
     });
 

@@ -30,129 +30,216 @@ var assert = require("power-assert");
 
 describe("ObserverSubject.remove()", function(){
     var ObserverSubject = window.ObserverSubject;
-    var gSubject = null;
-    var gObserver = null;
 
-    beforeEach(function(){
-        gSubject = new ObserverSubject();
-        gObserver = {
-            handleMessage: function () {
-            }
-        };
-    });
-
-    afterEach(function(){
-        gSubject = null;
-        gObserver = null;
-    });
-
-    it("valid case: unregister the single observer.", function(){
-        // this will be false if `gObserver.handleMessage()` called.
+    describe("valid case: unregister the single observer", function () {
+        var gSubject = null;
         var flag = true;
-        gObserver.handleMessage = function () {
-            flag = false;
-        };
 
-        // add gObserver once.
-        gSubject.add("test", gObserver);
-        // remove gObserver immidiately.
-        gSubject.remove("test", gObserver);
+        before(function(){
+            gSubject = new ObserverSubject();
 
-        // this shouldn't call `gObserver.handleMessage()`.
-        gSubject.notify("test", null);
-        assert(flag === true, "should not call `gObserver.handleMessage()` after remove it");
+            // this will be false if `observer.handleMessage()` called.
+            var observer = {
+                handleMessage: function () {
+                    flag = false;
+                }
+            };
+
+            // add observer once.
+            gSubject.add("test", observer);
+            // remove observer immidiately.
+            gSubject.remove("test", observer);
+
+            // this shouldn't call `observer.handleMessage()`.
+            gSubject.notify("test", null);
+        });
+
+        after(function(){
+            gSubject = null;
+        });
+
+        it("should not call `gObserver.handleMessage()` after remove it", function () {
+            assert(flag === true);
+        });
     });
 
-    it("valid case: unregister the multiple observer.", function(){
-        // flags will be false if `gObserver.handleMessage()` called.
+    describe("valid case: unregister the multiple observer.", function () {
+        var gSubject = null;
         var isCalled1 = true;
-        var o1 = {
-            handleMessage: function () {
-                isCalled1 = false;
-            }
-        };
-
         var isCalled2 = true;
-        var o2 = {
-            handleMessage: function () {
-                isCalled2 = false;
-            }
-        };
-
         var isCalled3 = true;
-        var o3 = {
-            handleMessage: function () {
-                isCalled3 = false;
-            }
-        };
 
-        gSubject.add("test", o1);
-        gSubject.add("test", o2);
-        gSubject.add("test", o3);
+        before(function(){
+            gSubject = new ObserverSubject();
 
-        gSubject.remove("test", o2);
-        gSubject.notify("test", null);
+            var o1 = {
+                handleMessage: function () {
+                    isCalled1 = false;
+                }
+            };
+            gSubject.add("test", o1);
 
-        assert(isCalled1 === false, "should call 'o1.handleMessage()'.");
-        assert(isCalled2 === true, "should not call 'o2.handleMessage()' after remove it");
-        assert(isCalled3 === false, "should call 'o3.handleMessage()'.");
+            var o2 = {
+                handleMessage: function () {
+                    isCalled2 = false;
+                }
+            };
+            gSubject.add("test", o2);
+
+            var o3 = {
+                handleMessage: function () {
+                    isCalled3 = false;
+                }
+            };
+            gSubject.add("test", o3);
+
+            gSubject.remove("test", o2);
+            gSubject.notify("test", null);
+        });
+
+        after(function(){
+            gSubject = null;
+        });
+
+        it("should call 'o1.handleMessage()'", function () {
+            assert(isCalled1 === false);
+        });
+
+        it("should not call 'o2.handleMessage()' after remove it", function () {
+            assert(isCalled2 === true);
+        });
+
+        it("should call 'o3.handleMessage()'", function () {
+            assert(isCalled3 === false);
+        });
     });
 
     describe("if the arg1 is invalid", function(){
-        it("the arg1 is nothing.", function(){
-            try {
-                gSubject.remove();
-            }
-            catch (e) {
-                assert(e instanceof Error);
-            }
+        var gObserver = {
+            handleMessage: function () {
+            },
+        };
+
+        describe("the arg1 is nothing", function () {
+            var gSubject = null;
+            var error = null;
+
+            before(function () {
+                gSubject = new ObserverSubject();
+
+                try {
+                    gSubject.remove();
+                }
+                catch (e) {
+                    error = e;
+                }
+            });
+
+            it("should be instance of Error", function(){
+                assert(error instanceof Error);
+            });
+
+            it("should be the expected message", function(){
+                assert(error.message === "Arguments are not passed fully.");
+            });
         });
 
-        it("the arg1 is `null`.", function(){
-            try {
-                gSubject.remove(null, gObserver);
-            }
-            catch (e) {
-                assert(e instanceof Error);
-            }
+        describe("the arg1 is `null`.", function () {
+            var gSubject = null;
+            var error = null;
+
+            before(function () {
+                gSubject = new ObserverSubject();
+
+                try {
+                    gSubject.remove(null, gObserver);
+                }
+                catch (e) {
+                    error = e;
+                }
+            });
+
+            it("should be instance of Error", function(){
+                assert(error instanceof Error);
+            });
+
+            it("should be the expected message", function(){
+                assert(error.message === "Arguments are not passed fully.");
+            });
         });
 
-        it("the arg1 is `undefined`.", function(){
-            try {
-                gSubject.remove(undefined, gObserver);
-            }
-            catch (e) {
-                assert(e instanceof Error);
-            }
+        describe("the arg1 is `null`.", function () {
+            var gSubject = null;
+            var error = null;
+
+            before(function () {
+                gSubject = new ObserverSubject();
+
+                try {
+                    gSubject.remove(undefined, gObserver);
+                }
+                catch (e) {
+                    error = e;
+                }
+            });
+
+            it("should be instance of Error", function(){
+                assert(error instanceof Error);
+            });
+
+            it("should be the expected message", function(){
+                assert(error.message === "Arguments are not passed fully.");
+            });
         });
     });
 
     describe("if the arg2 is invalid", function(){
-        it("the arg2 is nothing.", function(){
-            try {
-                gSubject.remove("test");
-            }
-            catch (e) {
-                assert(e instanceof Error);
-            }
+        describe("the arg2 is nothing.", function () {
+            var gSubject = null;
+            var error = null;
+
+            before(function () {
+                gSubject = new ObserverSubject();
+
+                try {
+                    gSubject.remove("test");
+                }
+                catch (e) {
+                    error = e;
+                }
+            });
+
+            it("should be instance of Error", function(){
+                assert(error instanceof Error);
+            });
+
+            it("should be the expected message", function(){
+                assert(error.message === "Arguments are not passed fully.");
+            });
         });
 
-        it("the arg2 is `null`.", function(){
-            try {
-                gSubject.remove("test", null);
-            }
-            catch (e) {
-                assert(e instanceof Error);
-            }
-        });
+        describe("the arg2 is null.", function () {
+            var gSubject = null;
+            var error = null;
 
-        it("the arg2 is `undefined`.", function(){
-            try {
-                gSubject.remove("test", undefined);
-            }
-            catch (e) {
-                assert(e instanceof Error);
-            }
+            before(function () {
+                gSubject = new ObserverSubject();
+
+                try {
+                    gSubject.remove("test", null);
+                }
+                catch (e) {
+                    error = e;
+                }
+            });
+
+            it("should be instance of Error", function(){
+                assert(error instanceof Error);
+            });
+
+            it("should be the expected message", function(){
+                assert(error.message === "Arguments are not passed fully.");
+            });
         });
     });
 
