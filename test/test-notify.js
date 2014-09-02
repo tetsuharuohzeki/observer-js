@@ -30,47 +30,54 @@ var assert = require("power-assert");
 
 describe("ObserverSubject.notify()", function(){
     var ObserverSubject = window.ObserverSubject;
-    var gSubject = null;
-    var gObserver = null;
 
-    beforeEach(function(){
-        gSubject = new ObserverSubject();
-        gObserver = {
-            handleMessage: function () {
-            }
-        };
+    describe("notified data is an object", function () {
+        var gSubject = null;
+        var resultData = null;
+
+        before(function(done){
+            gSubject = new ObserverSubject();
+
+            gSubject.add("test", {
+                handleMessage: function (aTopic, aData) {
+                    resultData = aData;
+                    done();
+                }
+            });
+            gSubject.notify("test", "hoge");
+        });
+
+        after(function(){
+            gSubject = null;
+        });
+
+        it("The expected data should be assigned", function () {
+            assert(resultData === "hoge");
+        });
     });
 
-    afterEach(function(){
-        gSubject = null;
-        gObserver = null;
-    });
+    describe("notified data is null", function () {
+        var gSubject = null;
+        var resultData = undefined;
 
-    it("valid case", function(){
-        var subject = new ObserverSubject();
+        before(function(done){
+            gSubject = new ObserverSubject();
 
-        subject.add("test1", {
-            handleMessage: function (aTopic, aData) {
-                assert(aTopic === "test1", "1: valid topic");
-                assert(aData === "hoge", "1: valid data");
-            }
+            gSubject.add("test", {
+                handleMessage: function (aTopic, aData) {
+                    resultData = aData;
+                    done();
+                }
+            });
+            gSubject.notify("test", null);
         });
-        subject.notify("test1", "hoge");
 
-        subject.add("test2", {
-            handleMessage: function (aTopic, aData) {
-                assert(aTopic === "test2", "2: valid topic");
-                assert(aData === null, "2: valid data");
-            }
+        after(function(){
+            gSubject = null;
         });
-        subject.notify("test2", null);
 
-        subject.add("test3", {
-            handleMessage: function (aTopic, aData) {
-                assert(aTopic === "test3", "3: valid topic");
-                assert(aData === undefined, "3: valid data");
-            }
+        it("The expected data should be assigned", function () {
+            assert(resultData === null);
         });
-        subject.notify("test3", undefined);
     });
 });
