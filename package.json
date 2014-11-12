@@ -9,7 +9,7 @@
   "devDependencies": {
     "browserify": "^6.3.2",
     "espowerify": "^0.10.0",
-    "gulp": "^3.8.6",
+    "gulp": "^3.8.10",
     "gulp-esmangle": "^1.1.1",
     "gulp-rename": "^1.2.0",
     "power-assert": "^0.10.0",
