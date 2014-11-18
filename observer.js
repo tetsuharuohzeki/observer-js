@@ -26,7 +26,7 @@
  * THE SOFTWARE.
  */
 
-var ObserverSubject = (function(){
+(function(namespace){
 "use strict";
 
 /**
@@ -174,6 +174,11 @@ ObserverSubject.prototype = Object.freeze({
 
 
 // export
-return ObserverSubject;
+if (typeof module !== "undefined" && !!module.exports) {
+    module.exports = ObserverSubject;
+}
+else {
+    namespace.ObserverSubject = ObserverSubject;
+}
 
-})();
+})(this);
