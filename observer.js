@@ -1,6 +1,6 @@
 /* vim: set filetype=javascript shiftwidth=4 tabstop=4 expandtab: */
-/*
- * @repository  https://github.com/saneyuki/observer-js
+/**
+ * https://github.com/saneyuki/observer-js
  * @version     0.4.1
  * @license     MIT License
  */
@@ -37,7 +37,7 @@ var ObserverSubject = function () {
 
     /**
      * @private
-     * @type    {Object.<string, Array.<{ handleMessage: function }>>}
+     * @type    {Object.<string, Array.<{ handleMessage: function(string, *) }>>}
      *
      * We create this `Object` with `null` to use as hashmap completely.
      *
@@ -84,7 +84,7 @@ ObserverSubject.prototype = Object.freeze({
      *  Register the observer to the related topic.
      *
      *  @param  {string}    aTopic
-     *  @param  {{ handleMessage : function }}   aObserver
+     *  @param  {{ handleMessage : function(string, *) }}   aObserver
      */
     add: function (aTopic, aObserver) {
         if (!aTopic || !aObserver) {
@@ -117,7 +117,7 @@ ObserverSubject.prototype = Object.freeze({
      *  Unregister the observer from the related topic.
      *
      *  @param  {string}    aTopic
-     *  @param  {{ handleMessage : function }}   aObserver
+     *  @param  {{ handleMessage : function(string, *) }}   aObserver
      */
     remove: function (aTopic, aObserver) {
         if (!aTopic || !aObserver) {
