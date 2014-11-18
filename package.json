@@ -2,6 +2,7 @@
   "name": "observer-js",
   "version": "0.5.0",
   "description": "Simple message passing library.",
+  "main": "observer.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/saneyuki/observer-js.git"
