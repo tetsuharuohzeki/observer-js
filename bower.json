@@ -20,6 +20,6 @@
         "package.json",
         "test",
         "testem.json",
-        "typescript/test"
+        "interface/typescript/test"
     ]
 }
