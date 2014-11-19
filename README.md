@@ -97,6 +97,11 @@ If you confuse how to implement this method to your object,
 you should implement this simply like `EventListener.handleEvent`.
 
 
+## Type Defenitions
+
+* [TypeScript](interface/typescript/observer.d.ts)
+
+
 ## License
 [MIT License](http://opensource.org/licenses/mit-license)
 
