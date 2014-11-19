@@ -97,12 +97,6 @@ If you confuse how to implement this method to your object,
 you should implement this simply like `EventListener.handleEvent`.
 
 
-## Type Defenitions
-
-* [TypeScript](interface/typescript/observer.d.ts)
-* [Flowtype](interface/flowtype/observer.js)
-
-
 ## License
 [MIT License](http://opensource.org/licenses/mit-license)
 
@@ -135,10 +129,6 @@ We need to [fix up](https://github.com/saneyuki/observer-js/issues/23)!
   - Latest Chromium
 4. Make all tests are green.
 
-#### TypeScript's type definitions
-1. Compile `interface/typescript/test/definitions-test.ts`.
-2. If you success to compile it, the definitions are valid.
-
-#### Flowtype's type definitions
-1. Excute `flow check --lib ../` in `interface/flowtype/test`.
+#### TypeScript type definitions
+1. Compile `typescript/test/definitions-test.ts`.
 2. If you success to compile it, the definitions are valid.
