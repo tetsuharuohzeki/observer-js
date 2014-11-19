@@ -129,6 +129,6 @@ We need to [fix up](https://github.com/saneyuki/observer-js/issues/23)!
   - Latest Chromium
 4. Make all tests are green.
 
-#### TypeScript type definitions
-1. Compile `typescript/test/definitions-test.ts`.
+#### TypeScript's type definitions
+1. Compile `interface/typescript/test/definitions-test.ts`.
 2. If you success to compile it, the definitions are valid.
