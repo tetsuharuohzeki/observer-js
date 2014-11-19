@@ -100,6 +100,7 @@ you should implement this simply like `EventListener.handleEvent`.
 ## Type Defenitions
 
 * [TypeScript](interface/typescript/observer.d.ts)
+* [Flowtype](interface/flowtype/observer.js)
 
 
 ## License
@@ -136,4 +137,8 @@ We need to [fix up](https://github.com/saneyuki/observer-js/issues/23)!
 
 #### TypeScript's type definitions
 1. Compile `interface/typescript/test/definitions-test.ts`.
+2. If you success to compile it, the definitions are valid.
+
+#### Flowtype's type definitions
+1. Excute `flow check --lib ../` in `interface/flowtype/test`.
 2. If you success to compile it, the definitions are valid.

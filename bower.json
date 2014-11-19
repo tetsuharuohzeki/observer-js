@@ -20,6 +20,7 @@
         "package.json",
         "test",
         "testem.json",
-        "interface/typescript/test"
+        "interface/typescript/test",
+        "interface/flowtype/test"
     ]
 }
