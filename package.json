@@ -8,12 +8,12 @@
     "url": "https://github.com/saneyuki/observer-js.git"
   },
   "devDependencies": {
-    "browserify": "^6.3.2",
+    "browserify": "^8.0.1",
     "espowerify": "^0.10.0",
     "gulp": "^3.8.10",
     "gulp-esmangle": "^1.1.1",
     "gulp-rename": "^1.2.0",
     "power-assert": "^0.10.0",
-    "vinyl-transform": "0.0.1"
+    "vinyl-transform": "^1.0.0"
   }
 }
