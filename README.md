@@ -127,13 +127,12 @@ TODO: These steps are too manual workings.
 We need to [fix up](https://github.com/saneyuki/observer-js/issues/23)!
 
 #### General
-1. Install [`testem`](https://github.com/airportyh/testem).
-2. run `testem` on the root of this repository.
-3. Connect following targets to testem at least.
+1. run `npm test` on the root of this repository, then [testem](https://www.npmjs.com/package/testem) will launch.
+2. Connect following targets to testem at least.
   - IE6~11 (Capable to use compat mode of latest IE)
   - Latest Firefox
   - Latest Chromium
-4. Make all tests are green.
+3. Make all tests are green.
 
 #### TypeScript's type definitions
 1. Compile `interface/typescript/test/definitions-test.ts`.
