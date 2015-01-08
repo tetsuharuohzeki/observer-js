@@ -31,7 +31,7 @@ var esmangle = require("gulp-esmangle");
 var rename = require("gulp-rename");
 var browserify = require("browserify");
 var espowerify = require("espowerify");
-var transform = require("vinyl-transform");
+var vinyl_stream = require("vinyl-source-stream");
 
 var SRC = "./observer.js";
 var DIST = "./dist/";
@@ -55,13 +55,9 @@ gulp.task("espower", function() {
         debug : true,
     };
 
-    var browserified = transform(function(filename){
-        var b = browserify(option).add(filename)
-                                  .transform(espowerify);
-        return b.bundle();
-    });
-
-    gulp.src("test/manifest.js")
-        .pipe(browserified)
+    browserify("./test/manifest.js", option)
+        .transform(espowerify)
+        .bundle()
+        .pipe(vinyl_stream("manifest.js"))
         .pipe(gulp.dest("powered-test"));
 });
