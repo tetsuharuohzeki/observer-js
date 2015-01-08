@@ -2,6 +2,10 @@
   "name": "observer-js",
   "version": "0.6.1",
   "description": "Simple message passing library.",
+  "scripts": {
+    "build": "node $(npm bin)/gulp minify",
+    "test": "node $(npm bin)/testem"
+  },
   "main": "observer.js",
   "repository": {
     "type": "git",
@@ -14,6 +18,7 @@
     "gulp-esmangle": "^1.1.1",
     "gulp-rename": "^1.2.0",
     "power-assert": "^0.10.0",
+    "testem": "^0.6.27",
     "vinyl-source-stream": "^1.0.0"
   }
 }
