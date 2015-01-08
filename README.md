@@ -120,7 +120,7 @@ you should implement this simply like `EventListener.handleEvent`.
 2. `npm install` on the root of this repository.
 
 ### Build
-Execute `gulp minify`. The minified script will be placed to `dist/` directory.
+Execute `npm run build`. The minified script will be placed to `dist/` directory.
 
 ### Test
 TODO: These steps are too manual workings.
