@@ -55,7 +55,8 @@ gulp.task("espower", function() {
         debug : true,
     };
 
-    browserify("./test/manifest.js", option)
+    browserify(option)
+        .add("./test/manifest.js")
         .transform(espowerify)
         .bundle()
         .pipe(vinyl_stream("manifest.js"))
