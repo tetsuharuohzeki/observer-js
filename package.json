@@ -2,9 +2,18 @@
   "name": "observer-js",
   "version": "0.6.1",
   "description": "Simple message passing library.",
+  "author": {
+    "name": "Tetsuharu OHZEKI",
+    "email": "<saneyuki.snyk@gmail.com>",
+    "web": "https://github.com/saneyuki"
+  },
   "scripts": {
     "build": "node $(npm bin)/gulp minify",
     "test": "node $(npm bin)/testem"
+  },
+  "licenses": {
+    "type": "MIT",
+    "url": "https://github.com/saneyuki/observer-js/raw/master/LICENSE.MIT"
   },
   "main": "observer.js",
   "repository": {
