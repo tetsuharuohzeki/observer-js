@@ -1,7 +1,7 @@
 {
     "name": "observer-js",
     "description": "Simple message passing library.",
-    "version": "0.6.1",
+    "version": "0.6.2",
     "authors": [
         "Tetsuharu OHZEKI <saneyuki.snyk@gmail.com>"
     ],
