@@ -64,4 +64,28 @@ describe("Safety: Data Race", function(){
             assert(flag === true);
         });
     });
+
+    it("if the observer adds the other one to the same subject in calling handleMessage() loop.", function(){
+        var o1 = {
+            handleMessage: function (data, topic) {
+                gSubject.add("test", o3);
+            }
+        };
+        var o2 = {
+            handleMessage: function (data, topic) {
+            }
+        };
+
+        var flag = false;
+        var o3 = {
+            handleMessage: function (data, topic) {
+                flag = true;
+            }
+        };
+
+        gSubject.add("test", o1);
+        gSubject.add("test", o2);
+        gSubject.notify("test", null);
+        assert(flag === false, "should not call the added observer when adding observers should be called.");
+    });
 });
