@@ -8,6 +8,7 @@
     "web": "https://github.com/saneyuki"
   },
   "scripts": {
+    "lint": "node $(npm bin)/gulp lint",
     "build": "node $(npm bin)/gulp minify",
     "test": "node $(npm bin)/testem"
   },
@@ -15,7 +16,7 @@
     "type": "MIT",
     "url": "https://github.com/saneyuki/observer-js/raw/master/LICENSE.MIT"
   },
-  "main": "observer.js",
+  "main": "src/observer.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/saneyuki/observer-js.git"
@@ -24,6 +25,7 @@
     "browserify": "^8.0.1",
     "espowerify": "^0.10.0",
     "gulp": "^3.8.10",
+    "gulp-eslint": "^0.4.2",
     "gulp-esmangle": "^1.1.1",
     "gulp-rename": "^1.2.0",
     "power-assert": "^0.10.0",

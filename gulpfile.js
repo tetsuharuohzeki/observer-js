@@ -27,17 +27,26 @@
 "use strict";
 
 var gulp = require("gulp");
+var eslint = require("gulp-eslint");
 var esmangle = require("gulp-esmangle");
 var rename = require("gulp-rename");
 var browserify = require("browserify");
 var espowerify = require("espowerify");
-var vinyl_stream = require("vinyl-source-stream");
+var vinylStream = require("vinyl-source-stream");
 
-var SRC = "./observer.js";
+var SRC = "./src/observer.js";
 var DIST = "./dist/";
 var TARGET = "observer.min.js";
 
-gulp.task("minify", function() {
+gulp.task("lint", function() {
+    return gulp.src(["./gulpfile.js", SRC, "./test/**/*.js"])
+        .pipe(eslint({
+            useEslintrc: true,
+        }))
+        .pipe(eslint.format());
+});
+
+gulp.task("minify", ["lint"], function() {
     var option = {
         license: true,
         licenseRegExp: /@(?:license|preserve)/i,
@@ -51,14 +60,14 @@ gulp.task("minify", function() {
 
 gulp.task("espower", function() {
     var option = {
-        insertGlobals : false,
-        debug : true,
+        insertGlobals: false,
+        debug: true,
     };
 
     browserify(option)
         .add("./test/manifest.js")
         .transform(espowerify)
         .bundle()
-        .pipe(vinyl_stream("manifest.js"))
+        .pipe(vinylStream("manifest.js"))
         .pipe(gulp.dest("powered-test"));
 });
