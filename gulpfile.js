@@ -27,6 +27,7 @@
 "use strict";
 
 var gulp = require("gulp");
+var eslint = require("gulp-eslint");
 var esmangle = require("gulp-esmangle");
 var rename = require("gulp-rename");
 var browserify = require("browserify");
@@ -37,7 +38,15 @@ var SRC = "./observer.js";
 var DIST = "./dist/";
 var TARGET = "observer.min.js";
 
-gulp.task("minify", function() {
+gulp.task("lint", function() {
+    return gulp.src(["./gulpfile.js"])
+        .pipe(eslint({
+            useEslintrc: true,
+        }))
+        .pipe(eslint.format());
+});
+
+gulp.task("minify", ["lint"], function() {
     var option = {
         license: true,
         licenseRegExp: /@(?:license|preserve)/i,
