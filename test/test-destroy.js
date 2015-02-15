@@ -86,6 +86,3 @@ describe("ObserverSubject.destroy()", function(){
         });
     });
 });
-
-
-

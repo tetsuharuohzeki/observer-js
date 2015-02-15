@@ -58,7 +58,7 @@ describe("ObserverSubject.notify()", function(){
 
     describe("notified data is null", function () {
         var gSubject = null;
-        var resultData = undefined;
+        var resultData = {};
 
         before(function(done){
             gSubject = new ObserverSubject();
