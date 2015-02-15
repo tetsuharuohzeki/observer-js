@@ -32,7 +32,7 @@ var esmangle = require("gulp-esmangle");
 var rename = require("gulp-rename");
 var browserify = require("browserify");
 var espowerify = require("espowerify");
-var vinyl_stream = require("vinyl-source-stream");
+var vinylStream = require("vinyl-source-stream");
 
 var SRC = "./observer.js";
 var DIST = "./dist/";
@@ -60,14 +60,14 @@ gulp.task("minify", ["lint"], function() {
 
 gulp.task("espower", function() {
     var option = {
-        insertGlobals : false,
-        debug : true,
+        insertGlobals: false,
+        debug: true,
     };
 
     browserify(option)
         .add("./test/manifest.js")
         .transform(espowerify)
         .bundle()
-        .pipe(vinyl_stream("manifest.js"))
+        .pipe(vinylStream("manifest.js"))
         .pipe(gulp.dest("powered-test"));
 });
