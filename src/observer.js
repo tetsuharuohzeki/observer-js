@@ -61,6 +61,8 @@ ObserverSubject.prototype = Object.freeze({
      *
      *  @param  {string}    aTopic
      *  @param  {*} aData
+     *
+     *  @return {void}
      */
     notify: function (aTopic, aData) {
         if (!aTopic) {
@@ -85,6 +87,8 @@ ObserverSubject.prototype = Object.freeze({
      *
      *  @param  {string}    aTopic
      *  @param  {{ handleMessage : function(string, *) }}   aObserver
+     *
+     *  @return {void}
      */
     add: function (aTopic, aObserver) {
         if (!aTopic || !aObserver) {
@@ -92,7 +96,7 @@ ObserverSubject.prototype = Object.freeze({
         }
 
         // We accept that `aObserver` inherits `handleMessage` from its ancestor.
-        if (!"handleMessage" in aObserver ||
+        if (!("handleMessage" in aObserver) ||
             typeof aObserver.handleMessage !== "function") {
             throw new Error("Not implement observer interface.");
         }
@@ -118,6 +122,8 @@ ObserverSubject.prototype = Object.freeze({
      *
      *  @param  {string}    aTopic
      *  @param  {{ handleMessage : function(string, *) }}   aObserver
+     *
+     *  @return {void}
      */
     remove: function (aTopic, aObserver) {
         if (!aTopic || !aObserver) {
@@ -160,6 +166,8 @@ ObserverSubject.prototype = Object.freeze({
      *  Finalize the subject.
      *  This method removes all topics from the subject.
      *  You can use this method as a destructor.
+     *
+     *  @return {void}
      */
     destroy: function () {
         var map = this._map;

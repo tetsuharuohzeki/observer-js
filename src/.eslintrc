@@ -6,6 +6,10 @@
     },
 
     "rules": {
+        // Stylistic Issues
+        "no-underscore-dangle": 0, // for a private member
+        "indent": 0, // XXX: This is for global anonymous function pattern.
+
         // Strict Mode
         "strict": [2, "function"]
     }
