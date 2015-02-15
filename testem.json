@@ -3,11 +3,11 @@
   "before_tests": "gulp espower",
   "on_exit": "rm -rf ./powered-test/",
   "src_files": [
-    "observer.js",
+    "src/observer.js",
     "test/**/*.js"
   ],
   "serve_files": [
-    "./observer.js",
+    "./src/observer.js",
     "./powered-test/manifest.js"
   ]
 }

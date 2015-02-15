@@ -13,7 +13,7 @@
         "type": "MIT",
         "url": "https://github.com/saneyuki/observer-js/raw/master/LICENSE.MIT"
     },
-    "main": "observer.js",
+    "main": "src/observer.js",
     "ignore": [
         ".eslintrc",
         "gulpfile.js",

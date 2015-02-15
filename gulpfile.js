@@ -34,7 +34,7 @@ var browserify = require("browserify");
 var espowerify = require("espowerify");
 var vinylStream = require("vinyl-source-stream");
 
-var SRC = "./observer.js";
+var SRC = "./src/observer.js";
 var DIST = "./dist/";
 var TARGET = "observer.min.js";
 
