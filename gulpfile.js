@@ -39,7 +39,7 @@ var DIST = "./dist/";
 var TARGET = "observer.min.js";
 
 gulp.task("lint", function() {
-    return gulp.src(["./gulpfile.js", SRC])
+    return gulp.src(["./gulpfile.js", SRC, "./test/**/*.js"])
         .pipe(eslint({
             useEslintrc: true,
         }))
