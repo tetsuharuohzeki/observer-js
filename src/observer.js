@@ -1,3 +1,4 @@
+/* @flow */
 /* vim: set filetype=javascript shiftwidth=4 tabstop=4 expandtab: */
 /**
  * https://github.com/saneyuki/observer-js
@@ -29,6 +30,16 @@
 (function(namespace){
 "use strict";
 
+/*::
+    type Observer = {
+        handleMessage(topic :string, data: mixed): void;
+    };
+
+    type Map = {
+        [key:string]: Array<Observer>;
+     };
+*/
+
 /**
  * Observer Subject
  * @constructor
@@ -43,6 +54,7 @@ var ObserverSubject = function () {
      *
      * FIXME: Use ES6 Map
      */
+    /* ::_map: Map */
     this._map = Object.create(null);
 
     Object.freeze(this);
@@ -64,7 +76,7 @@ ObserverSubject.prototype = Object.freeze({
      *
      *  @return {void}
      */
-    notify: function (aTopic, aData) {
+    notify: function (aTopic /* :string */, aData /* :number */) /* :void */ {
         if (!aTopic) {
             throw new Error("Not specified any topic.");
         }
@@ -90,7 +102,7 @@ ObserverSubject.prototype = Object.freeze({
      *
      *  @return {void}
      */
-    add: function (aTopic, aObserver) {
+    add: function (aTopic /* :string */, aObserver /* :Observer */) /* :void */ {
         if (!aTopic || !aObserver) {
             throw new Error("Aruguments are not passed fully.");
         }
@@ -125,7 +137,7 @@ ObserverSubject.prototype = Object.freeze({
      *
      *  @return {void}
      */
-    remove: function (aTopic, aObserver) {
+    remove: function (aTopic /* :string */, aObserver /* :Observer */) /* :void */ {
         if (!aTopic || !aObserver) {
             throw new Error("Arguments are not passed fully.");
         }
@@ -153,7 +165,7 @@ ObserverSubject.prototype = Object.freeze({
         }
     },
 
-    _removeTopic: function (aTopic) {
+    _removeTopic: function (aTopic /* :string */) /* :void */ {
         var list = this._map[aTopic];
         for (var i = 0, l = list.length; i < l; ++i) {
             list[i] = null;
@@ -169,7 +181,7 @@ ObserverSubject.prototype = Object.freeze({
      *
      *  @return {void}
      */
-    destroy: function () {
+    destroy: function () /* :void */ {
         var map = this._map;
         for (var topic in map) {
             this._removeTopic(topic);

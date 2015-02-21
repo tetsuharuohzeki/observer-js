@@ -24,6 +24,7 @@
   "devDependencies": {
     "browserify": "^8.0.1",
     "espowerify": "^0.10.0",
+    "flow-bin": "^0.4.0",
     "gulp": "^3.8.10",
     "gulp-eslint": "^0.4.2",
     "gulp-esmangle": "^1.1.1",
